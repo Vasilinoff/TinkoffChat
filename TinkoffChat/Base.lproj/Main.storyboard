@@ -60,12 +60,16 @@
                                     <action selector="saveButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uWw-hd-se6"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="4cx-0O-oWb">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="4cx-0O-oWb">
                                 <rect key="frame" x="97.5" y="247" width="180" height="180"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="fRh-mf-plc"/>
                                     <constraint firstAttribute="height" constant="180" id="muh-Lv-xt5"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="3kk-Xv-2uu" appends="YES" id="nFi-2u-9MK"/>
+                                </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFw-Ld-qCC">
                                 <rect key="frame" x="92.5" y="562" width="56.5" height="34"/>
@@ -178,9 +182,15 @@
                     </view>
                     <connections>
                         <outlet property="textColorLabel" destination="uhh-lZ-PUh" id="fXa-JU-ABS"/>
+                        <outlet property="userImageView" destination="4cx-0O-oWb" id="gZG-aX-ARB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="3kk-Xv-2uu">
+                    <connections>
+                        <action selector="choosePicture:" destination="BYZ-38-t0r" id="lTf-Ng-UNh"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="123.68815592203899"/>
         </scene>
