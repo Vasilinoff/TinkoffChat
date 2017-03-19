@@ -111,16 +111,6 @@
                                     <action selector="changeColorButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rEZ-Bf-M7d"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xl2-mn-Myd">
-                                <rect key="frame" x="26" y="562" width="56.5" height="34"/>
-                                <color key="backgroundColor" red="0.16769960519999999" green="0.1956448257" blue="0.22480580210000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="changeColorButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uF1-UP-QXA"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jJb-4J-MWe">
                                 <rect key="frame" x="16" y="113" width="343" height="88"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,6 +127,16 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xl2-mn-Myd">
+                                <rect key="frame" x="26" y="562" width="56.5" height="34"/>
+                                <color key="backgroundColor" red="0.16769960519999999" green="0.1956448257" blue="0.22480580210000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeColorButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uF1-UP-QXA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -181,8 +181,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="aboutTextView" destination="jJb-4J-MWe" id="BPv-cO-ySH"/>
                         <outlet property="textColorLabel" destination="uhh-lZ-PUh" id="fXa-JU-ABS"/>
                         <outlet property="userImageView" destination="4cx-0O-oWb" id="gZG-aX-ARB"/>
+                        <outlet property="userNameTextField" destination="Hie-rx-Zsm" id="sH9-WS-Efq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
