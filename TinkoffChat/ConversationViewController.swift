@@ -22,8 +22,8 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
         messages.append(Message(text: "text two text two text two text two text two text two text two text two text two text two text two", received: false))
         messages.append(Message(text: "text three", received: true))
         messages.append(Message(text: "text 4", received: false))
-        messages.append(Message(text: "text 5", received: true))
-        messages.append(Message(text: "text 6", received: false))
+        messages.append(Message(text: "text 5 text two text two text two text two text two text two text two text two text two text two text twotext two text two text two text two text two text two text two text two text two text two text twotext two text two text two text two text two text two text two text two text two text two text two", received: true))
+        messages.append(Message(text: "first messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst messagefirst message", received: false))
         
         messagesTableView.dataSource = self
         messagesTableView.delegate = self

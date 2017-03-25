@@ -45,7 +45,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wv-oX-464">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wv-oX-464">
                                                     <rect key="frame" x="10" y="46" width="329" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vlv-SG-Rjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="176.80000000000001" y="-540.17991004497753"/>
+            <point key="canvasLocation" x="2" y="-540"/>
         </scene>
         <!--Conversation View Controller-->
         <scene sceneID="af9-Ld-hiK">
@@ -140,7 +140,7 @@
                                                 <constraint firstItem="uYC-on-JPf" firstAttribute="leading" secondItem="6KT-x1-hkt" secondAttribute="leadingMargin" constant="19" id="FOC-ju-sNQ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="uYC-on-JPf" secondAttribute="bottom" constant="3" id="ZSc-T6-719"/>
                                                 <constraint firstItem="uYC-on-JPf" firstAttribute="top" secondItem="6KT-x1-hkt" secondAttribute="topMargin" constant="3" id="jhK-Mr-8b8"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="uYC-on-JPf" secondAttribute="trailing" constant="80" id="yRz-tP-eNU"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="uYC-on-JPf" secondAttribute="trailing" constant="75" id="yRz-tP-eNU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -165,7 +165,7 @@
                                                 <constraint firstItem="fGW-sz-AbY" firstAttribute="top" secondItem="x6y-hL-CRB" secondAttribute="topMargin" constant="3" id="0wZ-HR-LxL"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fGW-sz-AbY" secondAttribute="bottom" constant="3" id="MgI-xn-0eV"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="fGW-sz-AbY" secondAttribute="trailing" constant="19" id="QYR-bj-soO"/>
-                                                <constraint firstItem="fGW-sz-AbY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="x6y-hL-CRB" secondAttribute="leadingMargin" constant="80" id="a2R-cu-YNZ"/>
+                                                <constraint firstItem="fGW-sz-AbY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="x6y-hL-CRB" secondAttribute="leadingMargin" constant="75" id="a2R-cu-YNZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -393,7 +393,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="780" y="-540"/>
+            <point key="canvasLocation" x="722" y="-540"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Nz-sP-7YL">
