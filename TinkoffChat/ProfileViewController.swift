@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBAction func dismissProfile(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBOutlet weak var aboutTextView: UITextView!
     @IBOutlet weak var userImageView: UIImageView!

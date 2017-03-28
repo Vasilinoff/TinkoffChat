@@ -21,3 +21,14 @@ class Message: MessageCellConfiguration {
         
     }
 }
+
+func fillMessageModel() {
+    messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a a", received: true))
+    messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a", received: false))
+    messages.append(Message(text: "text three", received: true))
+    messages.append(Message(text: "text 4", received: false))
+    messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a", received: true))
+    messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a a", received: false))
+
+
+}

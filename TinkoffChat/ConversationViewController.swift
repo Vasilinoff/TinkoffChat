@@ -7,24 +7,19 @@
 //
 
 import UIKit
+var messages = [Message]()
 
 class ConversationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var messagesTableView: UITableView!
     
-    var messages = [Message]()
     var name: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a a", received: true))
-        messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a", received: false))
-        messages.append(Message(text: "text three", received: true))
-        messages.append(Message(text: "text 4", received: false))
-        messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a", received: true))
-        messages.append(Message(text: "a a a a a a a a a a a a a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a aa a a a a a a a a a a", received: false))
-        
+        //MARK: заполняем сообщения
+        fillMessageModel()
         messagesTableView.dataSource = self
         messagesTableView.delegate = self
         messagesTableView.rowHeight = UITableViewAutomaticDimension
@@ -33,6 +28,7 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
         self.title = name
     }
     
+    //MARK: соответствуем протоколу
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
