@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D912BE9C1E85A5FB00C53CB2 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912BE9B1E85A5FB00C53CB2 /* ConversationsListViewController.swift */; };
 		D912BE9F1E85B32100C53CB2 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912BE9E1E85B32100C53CB2 /* ContactModel.swift */; };
+		D91826AE1E901A420079E533 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91826AD1E901A420079E533 /* ProfileData.swift */; };
 		D944D8BE1E85E0F4004BAD8F /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */; };
 		D9CD8E731E868FFF004CD465 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */; };
 		D9CD8E751E86942E004CD465 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E741E86942E004CD465 /* MessageCell.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		D912BE9B1E85A5FB00C53CB2 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		D912BE9E1E85B32100C53CB2 /* ContactModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
+		D91826AD1E901A420079E533 /* ProfileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		D9CD8E741E86942E004CD465 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				D9F756C41E6DF37500F81911 /* ProfileViewController.swift */,
 				D912BE9B1E85A5FB00C53CB2 /* ConversationsListViewController.swift */,
 				D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */,
+				D91826AD1E901A420079E533 /* ProfileData.swift */,
 				D9F756C61E6DF37500F81911 /* Main.storyboard */,
 				D9F756C91E6DF37500F81911 /* Assets.xcassets */,
 				D9F756CB1E6DF37500F81911 /* LaunchScreen.storyboard */,
@@ -165,6 +168,7 @@
 			files = (
 				D9CD8E751E86942E004CD465 /* MessageCell.swift in Sources */,
 				D9F756C51E6DF37500F81911 /* ProfileViewController.swift in Sources */,
+				D91826AE1E901A420079E533 /* ProfileData.swift in Sources */,
 				D944D8BE1E85E0F4004BAD8F /* ContactTableViewCell.swift in Sources */,
 				D9CD8E771E869828004CD465 /* MessageModel.swift in Sources */,
 				D9CD8E731E868FFF004CD465 /* ConversationViewController.swift in Sources */,

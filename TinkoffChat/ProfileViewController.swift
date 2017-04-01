@@ -9,15 +9,42 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     @IBAction func dismissProfile(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    var data = ProfileData(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
+    
     
     @IBOutlet weak var aboutTextView: UITextView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var textColorLabel: UILabel!
     @IBOutlet weak var userNameTextField: UITextField!
+    
+    var filePath: String {
+        let manager = FileManager.default
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        return url!.appendingPathComponent("ProfileData").path
+    }
+    
+    private func loadData() {
+        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? ProfileData {
+            data = ourData
+        }
+        self.aboutTextView.text = data.aboutValue
+        self.userNameTextField.text = data.nameValue
+        self.userImageView.image = data.profileImage
+        self.textColorLabel.textColor = data.color
+    }
+    
+    private func saveData(profileData: ProfileData) {
+        data = profileData
+        
+        NSKeyedArchiver.archiveRootObject(data, toFile: filePath)
+        
+        print("saveData")
+    }
     
     let pickerController = UIImagePickerController()
     
@@ -26,9 +53,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         self.userNameTextField.delegate = self
         
-        print(#function)
+        if !(userNameTextField.text == "name") {
+            userNameTextField.textColor = UIColor.black
+        }
         
-        descriptionPrint()
+        loadData()
+        
+        
+        //print(#function)
+        
+        //descriptionPrint()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         
@@ -43,6 +77,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     @IBAction func saveButtonAction(_ sender: UIButton) {
         print("Сохранение данных профиля")
+        let name = userNameTextField.text
+        let about = aboutTextView.text
+        let profileImage = userImageView.image
+        let color = textColorLabel.textColor
+        
+        if let nameValue = name, let aboutValue = about, let imageVale = profileImage, let colorValue = color {
+            let newProfileData = ProfileData(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
+            self.saveData(profileData: newProfileData)
+        }
+        
     }
     
     @IBAction func changeColorButton(_ sender: UIButton) {
@@ -107,46 +151,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             print("\n")
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     func dismissKeyboard() {
         view.endEditing(true)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        print(#function)
-        
-        descriptionPrint()
-    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        
-        print(#function)
-        
-        descriptionPrint()
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        
-        print(#function)
-        
-        descriptionPrint()
-    }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        
-        print(#function)
-        
-        descriptionPrint()
-    }
-
-
 }
 
