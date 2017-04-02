@@ -14,6 +14,7 @@
 		D9CD8E731E868FFF004CD465 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */; };
 		D9CD8E751E86942E004CD465 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E741E86942E004CD465 /* MessageCell.swift */; };
 		D9CD8E771E869828004CD465 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E761E869828004CD465 /* MessageModel.swift */; };
+		D9ED50211E917AEF00300278 /* GCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ED50201E917AEF00300278 /* GCDManager.swift */; };
 		D9F756C31E6DF37500F81911 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F756C21E6DF37500F81911 /* AppDelegate.swift */; };
 		D9F756C51E6DF37500F81911 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F756C41E6DF37500F81911 /* ProfileViewController.swift */; };
 		D9F756C81E6DF37500F81911 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9F756C61E6DF37500F81911 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 		D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		D9CD8E741E86942E004CD465 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		D9CD8E761E869828004CD465 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		D9ED50201E917AEF00300278 /* GCDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDManager.swift; sourceTree = "<group>"; };
 		D9F756BF1E6DF37500F81911 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9F756C21E6DF37500F81911 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9F756C41E6DF37500F81911 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +82,7 @@
 				D912BE9D1E85B30800C53CB2 /* Model */,
 				D9F756C21E6DF37500F81911 /* AppDelegate.swift */,
 				D9F756C41E6DF37500F81911 /* ProfileViewController.swift */,
-				D912BE9B1E85A5FB00C53CB2 /* ConversationsListViewController.swift */,
+				D9ED50201E917AEF00300278 /* GCDManager.swift */,
 				D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */,
 				D91826AD1E901A420079E533 /* ProfileData.swift */,
 				D9F756C61E6DF37500F81911 /* Main.storyboard */,
@@ -88,6 +90,7 @@
 				D9F756CB1E6DF37500F81911 /* LaunchScreen.storyboard */,
 				D9F756CE1E6DF37500F81911 /* Info.plist */,
 				D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */,
+				D912BE9B1E85A5FB00C53CB2 /* ConversationsListViewController.swift */,
 				D9CD8E741E86942E004CD465 /* MessageCell.swift */,
 			);
 			path = TinkoffChat;
@@ -166,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9ED50211E917AEF00300278 /* GCDManager.swift in Sources */,
 				D9CD8E751E86942E004CD465 /* MessageCell.swift in Sources */,
 				D9F756C51E6DF37500F81911 /* ProfileViewController.swift in Sources */,
 				D91826AE1E901A420079E533 /* ProfileData.swift in Sources */,

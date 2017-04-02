@@ -14,50 +14,57 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         self.dismiss(animated: true, completion: nil)
     }
     
-    var data = ProfileData(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
-    
+    var data = ProfileData(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
+    var manager = GCDManager()
     
     @IBOutlet weak var aboutTextView: UITextView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var textColorLabel: UILabel!
     @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var GCDButton: UIButton!
+    @IBOutlet weak var operationButton: UIButton!
     
-    var filePath: String {
-        let manager = FileManager.default
-        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        return url!.appendingPathComponent("ProfileData").path
-    }
     
-    private func loadData() {
-        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? ProfileData {
-            data = ourData
-        }
-        self.aboutTextView.text = data.aboutValue
-        self.userNameTextField.text = data.nameValue
-        self.userImageView.image = data.profileImage
-        self.textColorLabel.textColor = data.color
-    }
-    
-    private func saveData(profileData: ProfileData) {
-        data = profileData
-        
-        NSKeyedArchiver.archiveRootObject(data, toFile: filePath)
-        
-        print("saveData")
-    }
+//    var filePath: String {
+//        let manager = FileManager.default
+//        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+//        return url!.appendingPathComponent("ProfileData").path
+//    }
+//    private func loadData() {
+//        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? ProfileData {
+//            data = ourData
+//        }
+//        
+//    }
+//    
+//    private func saveData(profileData: ProfileData) {
+//        data = profileData
+//        NSKeyedArchiver.archiveRootObject(data, toFile: filePath)
+//        
+//        print("saveData")
+//    }
     
     let pickerController = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.loadingIndicator.hidesWhenStopped = true
         self.userNameTextField.delegate = self
         
         if !(userNameTextField.text == "name") {
             userNameTextField.textColor = UIColor.black
         }
         
-        loadData()
+        self.data = manager.loadData()
+        DispatchQueue.main.async {
+            self.aboutTextView.text = self.data.aboutValue
+            self.userNameTextField.text = self.data.nameValue
+            self.userImageView.image = self.data.profileImage
+            self.textColorLabel.textColor = self.data.color
+        }
+        
+        
         
         
         //print(#function)
@@ -75,8 +82,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         return (true)
     }
     
-    @IBAction func saveButtonAction(_ sender: UIButton) {
+    @IBAction func GCDSaveButtonAction(_ sender: UIButton) {
         print("Сохранение данных профиля")
+        self.loadingIndicator.startAnimating()
+        self.GCDButton.isEnabled = false
+        self.operationButton.isEnabled = false
         let name = userNameTextField.text
         let about = aboutTextView.text
         let profileImage = userImageView.image
@@ -84,9 +94,19 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         if let nameValue = name, let aboutValue = about, let imageVale = profileImage, let colorValue = color {
             let newProfileData = ProfileData(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
-            self.saveData(profileData: newProfileData)
+            
+            manager.saveData(profileData: newProfileData)
+            
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+                self.GCDButton.isEnabled = true
+                self.operationButton.isEnabled = true
+            }
+            
         }
         
+    }
+    @IBAction func operationSaveButton(_ sender: Any) {
     }
     
     @IBAction func changeColorButton(_ sender: UIButton) {
