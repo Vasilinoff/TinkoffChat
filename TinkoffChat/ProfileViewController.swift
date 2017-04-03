@@ -55,14 +55,17 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         if !(userNameTextField.text == "name") {
             userNameTextField.textColor = UIColor.black
         }
-        
-        self.data = manager.loadData()
-        DispatchQueue.main.async {
-            self.aboutTextView.text = self.data.aboutValue
-            self.userNameTextField.text = self.data.nameValue
-            self.userImageView.image = self.data.profileImage
-            self.textColorLabel.textColor = self.data.color
+        manager.loadData { (profileData) in
+            self.data = profileData
+            DispatchQueue.main.async {
+                self.aboutTextView.text = self.data.aboutValue
+                self.userNameTextField.text = self.data.nameValue
+                self.userImageView.image = self.data.profileImage
+                self.textColorLabel.textColor = self.data.color
+            }
         }
+        
+        
         
         
         
@@ -83,7 +86,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     @IBAction func GCDSaveButtonAction(_ sender: UIButton) {
-        print("Сохранение данных профиля")
         self.loadingIndicator.startAnimating()
         self.GCDButton.isEnabled = false
         self.operationButton.isEnabled = false
@@ -95,6 +97,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         if let nameValue = name, let aboutValue = about, let imageVale = profileImage, let colorValue = color {
             let newProfileData = ProfileData(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
             
+            //print(String(profileImage))
             manager.saveData(profileData: newProfileData)
             
             DispatchQueue.main.async {

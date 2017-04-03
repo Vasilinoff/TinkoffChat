@@ -17,16 +17,14 @@ class GCDManager {
         return url!.appendingPathComponent("ProfileData").path
     }
     
-    func loadData() -> ProfileData {
+    func loadData(with completion: @escaping (ProfileData) -> ()) {
         
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
             if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath) as? ProfileData {
-                self.data = ourData
-                
+                completion(ourData)
             }
         }
-        return self.data
     }
     
      func saveData(profileData: ProfileData) {
