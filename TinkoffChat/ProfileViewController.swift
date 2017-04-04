@@ -26,26 +26,6 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     @IBOutlet weak var GCDButton: UIButton!
     @IBOutlet weak var operationButton: UIButton!
     
-    
-//    var filePath: String {
-//        let manager = FileManager.default
-//        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-//        return url!.appendingPathComponent("ProfileData").path
-//    }
-//    private func loadData() {
-//        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? ProfileData {
-//            data = ourData
-//        }
-//        
-//    }
-//    
-//    private func saveData(profileData: ProfileData) {
-//        data = profileData
-//        NSKeyedArchiver.archiveRootObject(data, toFile: filePath)
-//        
-//        print("saveData")
-//    }
-    
     let pickerController = UIImagePickerController()
     
     override func viewDidLoad() {
@@ -103,36 +83,38 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
             
         gcdDataManager.save(profileData: newProfileData) { (error) in
                 
-            if error == nil {
+        if error == nil {
                 
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
     
-                    let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
-                    let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
-                        self.GCDSaveButtonAction(self.GCDButton)
-                    }
-                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertSaveController.addAction(againAction)
-                    alertSaveController.addAction(okAction)
-                    self.present(alertSaveController, animated: true, completion: nil)
-                    }
+                let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
+                let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
+                    self.GCDSaveButtonAction(self.GCDButton)
+                }
+                let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertSaveController.addAction(againAction)
+                alertSaveController.addAction(okAction)
+                self.present(alertSaveController, animated: true, completion: nil)
+                }
                     
-                } else {
-                DispatchQueue.main.async {
-                    let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertSaveController.addAction(okAction)
-                    self.present(alertSaveController, animated: true, completion: nil)
+            } else {
+            DispatchQueue.main.async {
+                let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertSaveController.addAction(okAction)
+                self.present(alertSaveController, animated: true, completion: nil)
+            }
                 }
-                }
-                
+            
+            DispatchQueue.main.async {
                 self.loadingIndicator.stopAnimating()
             }
+        }
         
         
     }
     
-    @IBAction func operationSaveButtonAction(_ sender: UIButton) {
+    @IBAction func operationSaveButton(_ sender: UIButton) {
         
         setButtonsDisable()
         let newProfileData = setValues()
@@ -144,7 +126,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
                 DispatchQueue.main.async {
                     let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
                     let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
-                        self.operationSaveButtonAction(self.operationButton)
+                        self.operationSaveButton(self.operationButton)
                     }
                     let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertSaveController.addAction(againAction)
