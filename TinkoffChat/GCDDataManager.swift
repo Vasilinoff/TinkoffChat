@@ -9,33 +9,29 @@
 import Foundation
 import UIKit
 
-class GCDManager {
-    var data = ProfileData(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
-    var filePath: String {
+class GCDDataManager: DataManager {
+        var filePath: String {
         let manager = FileManager.default
         let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         return url!.appendingPathComponent("ProfileData").path
     }
     
-    func loadData(with completion: @escaping (ProfileData) -> ()) {
+    func loadProfileData(handler: @escaping (ProfileData?, DataManagerError?) -> ()) {
         
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
             if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath) as? ProfileData {
-                completion(ourData)
+                handler(ourData, .loadError)
             }
         }
     }
     
-     func saveData(profileData: ProfileData) {
-        self.data = profileData
+    func save(profileData: ProfileData, handler: @escaping (DataManagerError?) -> () ) {
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
-            NSKeyedArchiver.archiveRootObject(self.data, toFile: self.filePath)
+            NSKeyedArchiver.archiveRootObject(profileData, toFile: self.filePath)
+            handler(.loadError)
         }
-        
-    
-        print("saveData")
     }
 
     

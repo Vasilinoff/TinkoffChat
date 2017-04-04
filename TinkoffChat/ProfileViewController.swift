@@ -8,14 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func dismissProfile(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
     var data = ProfileData(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
-    var manager = GCDManager()
+    var gcdDataManager: DataManager = GCDDataManager()
+    var operationDataManager: DataManager = OperationDataManager()
     
     @IBOutlet weak var aboutTextView: UITextView!
     @IBOutlet weak var userImageView: UIImageView!
@@ -51,29 +52,32 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         super.viewDidLoad()
         self.loadingIndicator.hidesWhenStopped = true
         self.userNameTextField.delegate = self
+        self.aboutTextView.delegate = self
+        self.GCDButton.isEnabled = false
+        self.operationButton.isEnabled = false
         
         if !(userNameTextField.text == "name") {
             userNameTextField.textColor = UIColor.black
         }
-        manager.loadData { (profileData) in
+        //-----Для того чтобы проверить load с помощью GCD
+        //-----Нужно изменить operationDataManager на GCDDataManager, оставив такой же метод
+        
+        operationDataManager.loadProfileData { (profileData, error) in
+            guard let profileData = profileData else {
+                print("error")
+                return
+            }
+            
             self.data = profileData
             DispatchQueue.main.async {
                 self.aboutTextView.text = self.data.aboutValue
                 self.userNameTextField.text = self.data.nameValue
                 self.userImageView.image = self.data.profileImage
-                self.textColorLabel.textColor = self.data.color
+                self.textColorLabel.textColor = self.data.colorValue
             }
         }
         
-        
-        
-        
-        
-        
-        //print(#function)
-        
-        //descriptionPrint()
-        
+
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         
         view.addGestureRecognizer(tap)
@@ -85,10 +89,112 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         return (true)
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        setButtonsAble()
+    }
+    @IBAction func usernameDidChanded(_ sender: UIButton) {
+        setButtonsAble()
+    }
+    
     @IBAction func GCDSaveButtonAction(_ sender: UIButton) {
+        
+        setButtonsDisable()
+        let newProfileData = setValues()
+            
+        gcdDataManager.save(profileData: newProfileData) { (error) in
+                
+            if error == nil {
+                
+                DispatchQueue.main.async {
+    
+                    let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
+                    let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
+                        self.GCDSaveButtonAction(self.GCDButton)
+                    }
+                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertSaveController.addAction(againAction)
+                    alertSaveController.addAction(okAction)
+                    self.present(alertSaveController, animated: true, completion: nil)
+                    }
+                    
+                } else {
+                DispatchQueue.main.async {
+                    let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertSaveController.addAction(okAction)
+                    self.present(alertSaveController, animated: true, completion: nil)
+                }
+                }
+                
+                self.loadingIndicator.stopAnimating()
+            }
+        
+        
+    }
+    
+    @IBAction func operationSaveButtonAction(_ sender: UIButton) {
+        
+        setButtonsDisable()
+        let newProfileData = setValues()
+            
+        operationDataManager.save(profileData: newProfileData) { (error) in
+                
+            if error == nil {
+                
+                DispatchQueue.main.async {
+                    let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
+                    let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
+                        self.operationSaveButtonAction(self.operationButton)
+                    }
+                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertSaveController.addAction(againAction)
+                    alertSaveController.addAction(okAction)
+                    
+                    self.present(alertSaveController, animated: true, completion: nil)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertSaveController.addAction(okAction)
+                    self.present(alertSaveController, animated: true, completion: nil)
+                }
+            }
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+            }
+        }
+        
+    }
+    
+    @IBAction func changeColorButton(_ sender: UIButton) {
+        textColorLabel.textColor = sender.backgroundColor
+        
+        self.GCDButton.isEnabled = true
+        self.GCDButton.backgroundColor = UIColor.red
+        self.operationButton.isEnabled = true
+        self.operationButton.backgroundColor = UIColor.red
+    }
+    
+    func setButtonsDisable() {
+        self.GCDButton.backgroundColor = UIColor(red: 1.0, green: 221/255, blue: 45/255, alpha: 1.0)
+        self.operationButton.backgroundColor = UIColor(red: 1.0, green: 221/255, blue: 45/255, alpha: 1.0)
+        
         self.loadingIndicator.startAnimating()
+        
         self.GCDButton.isEnabled = false
         self.operationButton.isEnabled = false
+        
+    }
+    func setButtonsAble() {
+        self.GCDButton.backgroundColor = UIColor.red
+        self.GCDButton.isEnabled = true
+        
+        self.operationButton.backgroundColor = UIColor.red
+        self.operationButton.isEnabled = true
+    }
+    
+    func setValues() -> ProfileData {
         let name = userNameTextField.text
         let about = aboutTextView.text
         let profileImage = userImageView.image
@@ -96,27 +202,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         if let nameValue = name, let aboutValue = about, let imageVale = profileImage, let colorValue = color {
             let newProfileData = ProfileData(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
+            return newProfileData
             
-            //print(String(profileImage))
-            manager.saveData(profileData: newProfileData)
-            
-            DispatchQueue.main.async {
-                self.loadingIndicator.stopAnimating()
-                self.GCDButton.isEnabled = true
-                self.operationButton.isEnabled = true
-            }
-            
+        } else {
+            let newProfileData = ProfileData(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: .black)
+            return newProfileData
         }
-        
     }
-    @IBAction func operationSaveButton(_ sender: Any) {
-    }
-    
-    @IBAction func changeColorButton(_ sender: UIButton) {
-        textColorLabel.textColor = sender.backgroundColor
-    }
-    
-    
     
     @IBAction func choosePicture(_ sender: Any) {
         pickerController.delegate = self
@@ -161,6 +253,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.userImageView.image = pickedImage
+            self.GCDButton.backgroundColor = UIColor.red
+            self.operationButton.backgroundColor = UIColor.red
+            self.GCDButton.isEnabled = true
+            self.operationButton.isEnabled = true
         }
     }
     

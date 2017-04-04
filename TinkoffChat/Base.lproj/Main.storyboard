@@ -309,6 +309,9 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="usernameDidChanded:" destination="BYZ-38-t0r" eventType="editingChanged" id="gM6-jL-XKc"/>
+                                </connections>
                             </textField>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="4cx-0O-oWb">
                                 <rect key="frame" x="117" y="253" width="180" height="180"/>
@@ -377,10 +380,10 @@
                             <constraint firstItem="yhb-QS-X0T" firstAttribute="width" secondItem="ker-sw-WKh" secondAttribute="width" id="JnD-yq-oik"/>
                             <constraint firstItem="uhh-lZ-PUh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="Nl3-D8-YWf"/>
                             <constraint firstItem="Xl2-mn-Myd" firstAttribute="width" secondItem="lFw-Ld-qCC" secondAttribute="width" id="OgT-9E-C1G"/>
+                            <constraint firstItem="8HM-XY-1pH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Pal-1M-Tyx"/>
                             <constraint firstItem="jJb-4J-MWe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="QXT-Wh-aBI"/>
                             <constraint firstItem="klM-M9-GJR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="64" id="RJK-Bh-wko"/>
                             <constraint firstItem="ezb-p0-ybM" firstAttribute="height" secondItem="ker-sw-WKh" secondAttribute="height" id="SCF-44-hUB"/>
-                            <constraint firstItem="8HM-XY-1pH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="167" id="VDn-J8-gvg"/>
                             <constraint firstItem="Xl2-mn-Myd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="WiF-eV-giz"/>
                             <constraint firstItem="ezb-p0-ybM" firstAttribute="leading" secondItem="lFw-Ld-qCC" secondAttribute="trailing" constant="10" id="Wzk-Q9-MaH"/>
                             <constraint firstItem="4cx-0O-oWb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="X1i-c9-7oF"/>
@@ -400,7 +403,6 @@
                             <constraint firstItem="Oxx-qy-BEj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="sCW-xe-2Lg"/>
                             <constraint firstItem="Kzn-iN-gtL" firstAttribute="top" secondItem="ezb-p0-ybM" secondAttribute="bottom" constant="27" id="ta7-qe-Bc4"/>
                             <constraint firstItem="Kzn-iN-gtL" firstAttribute="top" secondItem="Xl2-mn-Myd" secondAttribute="bottom" constant="27" id="ukK-Ce-C4r"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="8HM-XY-1pH" secondAttribute="trailing" constant="167" id="waU-4S-MFi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yhb-QS-X0T" secondAttribute="trailing" constant="10" id="xfd-gr-h2L"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JI3-mO-Rno" secondAttribute="bottom" id="z1T-WO-yoP"/>
                         </constraints>

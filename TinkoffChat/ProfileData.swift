@@ -11,83 +11,95 @@ import UIKit
 
 class ProfileData: NSObject, NSCoding {
     
-    struct Keys {
-        static let name = "name"
-        static let about = "about"
-        static let image = "image"
-        static let color = "color"
+    enum Keys: String {
+        case name
+        case about = "about"
+        case image = "image"
+        case color = "color"
     }
     
-    private var _nameValue = "your name"
-    private var _aboutValue = "your information"
-    private var _profileImage = #imageLiteral(resourceName: "placeholder")
-    private var _color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    var nameValue = "your name"
+    var aboutValue = "your information"
+    var profileImage = #imageLiteral(resourceName: "placeholder")
+    var colorValue = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    
+    static func create(fromData data: Data) -> ProfileData? {
+        return NSKeyedUnarchiver.unarchiveObject(with: data) as? ProfileData
+    }
     
     init(name: String, about: String, image: UIImage, color: UIColor) {
-        _nameValue = name
-        _aboutValue = about
-        _profileImage = image
-        _color = color
+        nameValue = name
+        aboutValue = about
+        profileImage = image
+        colorValue = color
         
     }
     
     required init(coder decoder: NSCoder) {
-        if let nameObj = decoder.decodeObject(forKey: Keys.name) as? String {
-            _nameValue = nameObj
+        if let nameObj = decoder.decodeObject(forKey: Keys.name.rawValue) as? String {
+            nameValue = nameObj
         }
-        if let aboutObj = decoder.decodeObject(forKey: Keys.about) as? String {
-            _aboutValue = aboutObj
+        if let aboutObj = decoder.decodeObject(forKey: Keys.about.rawValue) as? String {
+            aboutValue = aboutObj
         }
-        if let imageObj = decoder.decodeObject(forKey: Keys.image) as? UIImage {
-            _profileImage = imageObj
+        if let imageObj = decoder.decodeObject(forKey: Keys.image.rawValue) as? UIImage {
+            profileImage = imageObj
         }
-        if let colorObj = decoder.decodeObject(forKey: Keys.color) as? UIColor {
-            _color = colorObj
+        if let colorObj = decoder.decodeObject(forKey: Keys.color.rawValue) as? UIColor {
+            colorValue = colorObj
         }
         
     }
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(_nameValue, forKey: Keys.name)
-        aCoder.encode(_aboutValue, forKey: Keys.about)
-        aCoder.encode(_profileImage, forKey: Keys.image)
-        aCoder.encode(_color, forKey: Keys.color)
+        aCoder.encode(nameValue, forKey: Keys.name.rawValue)
+        aCoder.encode(aboutValue, forKey: Keys.about.rawValue)
+        aCoder.encode(profileImage, forKey: Keys.image.rawValue)
+        aCoder.encode(colorValue, forKey: Keys.color.rawValue)
     }
     
-    var nameValue: String {
+    var binaryData: Data {
         get {
-            return _nameValue
-        }
-        set {
-            _nameValue = newValue
-        }
-        
-    }
-    
-    var aboutValue: String {
-        get {
-            return _aboutValue
-        }
-        set {
-            _aboutValue = newValue
+            return NSKeyedArchiver.archivedData(withRootObject: self)
         }
     }
     
-    var profileImage: UIImage {
-        get {
-            return _profileImage
-        }
-        set {
-            _profileImage = newValue
-        }
-    }
+//    var nameValue: String {
+//        get {
+//            return _nameValue
+//        }
+//        set {
+//            _nameValue = newValue
+//        }
+//        
+//    }
+//    
+//    var aboutValue: String {
+//        get {
+//            return _aboutValue
+//        }
+//        set {
+//            _aboutValue = newValue
+//        }
+//    }
+//    
+//    var profileImage: UIImage {
+//        get {
+//            return _profileImage
+//        }
+//        set {
+//            _profileImage = newValue
+//        }
+//    }
+//    
+//    var color: UIColor {
+//        get {
+//            return _color
+//        }
+//        set {
+//            _color = newValue
+//        }
+//    }
+//    
     
-    var color: UIColor {
-        get {
-            return _color
-        }
-        set {
-            _color = newValue
-        }
-    }
 }
