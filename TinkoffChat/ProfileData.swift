@@ -13,9 +13,9 @@ class ProfileData: NSObject, NSCoding {
     
     enum Keys: String {
         case name
-        case about = "about"
-        case image = "image"
-        case color = "color"
+        case about
+        case image
+        case color
     }
     
     var nameValue = "your name"
@@ -63,43 +63,4 @@ class ProfileData: NSObject, NSCoding {
             return NSKeyedArchiver.archivedData(withRootObject: self)
         }
     }
-    
-//    var nameValue: String {
-//        get {
-//            return _nameValue
-//        }
-//        set {
-//            _nameValue = newValue
-//        }
-//        
-//    }
-//    
-//    var aboutValue: String {
-//        get {
-//            return _aboutValue
-//        }
-//        set {
-//            _aboutValue = newValue
-//        }
-//    }
-//    
-//    var profileImage: UIImage {
-//        get {
-//            return _profileImage
-//        }
-//        set {
-//            _profileImage = newValue
-//        }
-//    }
-//    
-//    var color: UIColor {
-//        get {
-//            return _color
-//        }
-//        set {
-//            _color = newValue
-//        }
-//    }
-//    
-    
 }

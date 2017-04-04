@@ -33,8 +33,4 @@ class GCDDataManager: DataManager {
             handler(.loadError)
         }
     }
-
-    
-    
-    
 }

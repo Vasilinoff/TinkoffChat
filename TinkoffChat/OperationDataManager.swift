@@ -15,7 +15,7 @@ class OperationDataManager: DataManager {
         return queue
     }()
     
-    func loadProfileData(handler: @escaping (ProfileData?, DataManagerError?) -> ()) {
+    func loadProfileData(handler: @escaping (ProfileData?, DataManagerError?) -> () ) {
         let loadOperation = LoadDataOperation(fileName: "ProfileData")
         loadOperation.completionBlock = {
             guard let data = loadOperation.data, let profileData = ProfileData.create(fromData: data) else {

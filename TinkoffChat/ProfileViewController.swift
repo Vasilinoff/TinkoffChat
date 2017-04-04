@@ -72,6 +72,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     func textViewDidChange(_ textView: UITextView) {
         setButtonsAble()
     }
+    
     @IBAction func usernameDidChanded(_ sender: UIButton) {
         setButtonsAble()
     }
@@ -110,12 +111,9 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
                 self.loadingIndicator.stopAnimating()
             }
         }
-        
-        
     }
     
     @IBAction func operationSaveButton(_ sender: UIButton) {
-        
         setButtonsDisable()
         let newProfileData = setValues()
             
@@ -256,8 +254,5 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    
-    
 }
 
