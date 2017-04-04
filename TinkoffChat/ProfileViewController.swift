@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    //MARK: скрывает вью профиля
     @IBAction func dismissProfile(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -68,15 +69,15 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         userNameTextField.resignFirstResponder()
         return (true)
     }
-    
+    //MARK: отслеживаем изменения тексвью
     func textViewDidChange(_ textView: UITextView) {
         setButtonsAble()
     }
-    
+    //MARK: отслеживаем изменения имени пользователя
     @IBAction func usernameDidChanded(_ sender: UIButton) {
         setButtonsAble()
     }
-    
+    //MARK: кнопка сохранения GCD
     @IBAction func GCDSaveButtonAction(_ sender: UIButton) {
         
         setButtonsDisable()
@@ -112,7 +113,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
             }
         }
     }
-    
+    //MARK: Кнопка сохранения Operation
     @IBAction func operationSaveButton(_ sender: UIButton) {
         setButtonsDisable()
         let newProfileData = setValues()
@@ -146,16 +147,13 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         }
         
     }
-    
+    //MARK: меняем цвет текста и активируем кнопки сохранения
     @IBAction func changeColorButton(_ sender: UIButton) {
         textColorLabel.textColor = sender.backgroundColor
-        
-        self.GCDButton.isEnabled = true
-        self.GCDButton.backgroundColor = UIColor.red
-        self.operationButton.isEnabled = true
-        self.operationButton.backgroundColor = UIColor.red
+        setButtonsAble()
     }
     
+    //MARK: делаем кнопки неактивными
     func setButtonsDisable() {
         self.GCDButton.backgroundColor = UIColor(red: 1.0, green: 221/255, blue: 45/255, alpha: 1.0)
         self.operationButton.backgroundColor = UIColor(red: 1.0, green: 221/255, blue: 45/255, alpha: 1.0)
@@ -166,6 +164,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         self.operationButton.isEnabled = false
         
     }
+    //MARK: делаем кнопки активными
     func setButtonsAble() {
         self.GCDButton.backgroundColor = UIColor.red
         self.GCDButton.isEnabled = true
@@ -174,6 +173,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         self.operationButton.isEnabled = true
     }
     
+    //MARK: заполняем дату значениями
     func setValues() -> ProfileData {
         let name = userNameTextField.text
         let about = aboutTextView.text
@@ -190,6 +190,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         }
     }
     
+    //MARK: выбираем картинку
     @IBAction func choosePicture(_ sender: Any) {
         pickerController.delegate = self
         pickerController.allowsEditing = false
