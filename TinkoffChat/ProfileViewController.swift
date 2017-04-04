@@ -9,7 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     //MARK: скрывает вью профиля
     @IBAction func dismissProfile(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -216,6 +215,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         
         let removeImageAction = UIAlertAction(title: "Удалить фото", style: .destructive) { (action) in
             self.userImageView.image = UIImage(named: "placeholder")
+            self.setButtonsAble()
             
         }
         
