@@ -19,7 +19,7 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         
         //MARK: заполняем сообщения
-        fillMessageModel()
+        //fillMessageModel()
         messagesTableView.dataSource = self
         messagesTableView.delegate = self
         messagesTableView.rowHeight = UITableViewAutomaticDimension

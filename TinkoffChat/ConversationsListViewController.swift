@@ -13,8 +13,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileButton: UIBarButtonItem!
     
-    
-    
+    let serviceManager = MultipeerCommunicator()
     
     //MARK: Фильтр для онлайн
     var contactsOnline: [Contact] {
@@ -36,14 +35,17 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        serviceManager.delegate = self
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         
+        
         //MARK: Добавление контактов
         
-        fillContactModel()
+        //fillContactModel()
     }
     
     //MARK: функции для протокола
@@ -108,4 +110,35 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     }
 
     
+}
+
+extension ConversationsListViewController: CommunicatorDelegate {
+    
+    func didFoundUser(userID: String, userName: String?) {
+        let contact = Contact.init(name: userID, message: nil, date: Date(), online: true, hasUnreadedMessages: false)
+        contacts.append(contact)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func didLostUser(userID: String) {
+        contacts = contacts.filter({ $0.name != userID  })
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func failedToStartBrowsingForUsers(error: Error) {
+    
+    }
+    
+    func failedToStartAdvertising(error: Error) {
+    
+    }
+    
+    func didRecievedMessage(text: String, fromUser: String, toUser: String) {
+    
+    }
 }
