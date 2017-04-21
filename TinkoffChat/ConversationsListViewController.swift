@@ -7,14 +7,18 @@
 //
 
 import UIKit
-var contacts = [Contact]()
 class ConversationsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileButton: UIBarButtonItem!
     
-    let serviceManager = MultipeerCommunicator()
+    let serviceManager = CommunicatorManager()
     
+    var contacts: [Contact] {
+        get {
+            return serviceManager.contacts
+        }
+    }
     //MARK: Фильтр для онлайн
     var contactsOnline: [Contact] {
         get {
@@ -24,7 +28,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     //MARK: Фильтр для офлайн
     var contactsOffline: [Contact] {
         get {
-            return contacts.filter({ (!$0.online)&&($0.message != nil)  })
+            return contacts.filter({ (!$0.online)&&($0.lastMessage != nil)  })
         }
     }
     
@@ -35,19 +39,14 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        serviceManager.delegate = self
+        serviceManager.contactsDelegate = self
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
-        
-        
-        //MARK: Добавление контактов
-        
-        //fillContactModel()
     }
-    
+
     //MARK: функции для протокола
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (section == 0 ? contactsOnline : contactsOffline).count
@@ -60,7 +59,6 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         return sectionHeaderTitles[section]
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let contactCell = self.tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactTableViewCell
         
@@ -70,7 +68,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 
         let contact = (indexPath.section == 0 ? contactsOnline : contactsOffline)[indexPath.row]
         contactCell.nameLabel.text = contact.name
-        contactCell.dateLabel.text = dateFormatter.string(from: contact.date!)
+        contactCell.dateLabel.text = dateFormatter.string(from: (contact.lastMessage?.date)!)
         
         if contact.online {
             contactCell.backgroundColor = UIColor(red: 243/255, green: 232/255, blue: 234/255, alpha: 1.0)
@@ -78,13 +76,12 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
             contactCell.backgroundColor = UIColor.white
         }
         
-        if let message = contact.message {
-            contactCell.messageLabel.text = message
+        if let message = contact.lastMessage {
+            contactCell.messageLabel.text = message.text
         } else {
             contactCell.messageLabel.text = "No messages yet"
             contactCell.messageLabel.font = UIFont.italicSystemFont(ofSize: 16.0)
-            contactCell.dateLabel.text = nil
-            
+            contactCell.dateLabel.isHidden = true
         }
         
         if contact.hasUnreadedMessages {
@@ -92,53 +89,41 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         } else {
             contactCell.messageLabel.font = UIFont.systemFont(ofSize: 16.0)
         }
-        
-        
-        contactCell.detailTextLabel?.text = contact.message
+
+        contactCell.detailTextLabel?.text = contact.lastMessage?.text
         
         return contactCell
     }
     //MARK: готовимся к сиге
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SendDataSegue" {
-            if let destination = segue.destination as? ConversationViewController {
+            if let controller = segue.destination as? ConversationViewController {
                 let path = tableView.indexPathForSelectedRow
-                let cell = tableView.cellForRow(at: path!) as! ContactTableViewCell
-                destination.name = cell.nameLabel.text
+                controller.contactManager = serviceManager as ContactManager
+                
+                serviceManager.activeContact = contacts[path!.row]
+                serviceManager.activeContactDelegate = controller
             }
         }
     }
-
-    
 }
 
-extension ConversationsListViewController: CommunicatorDelegate {
-    
-    func didFoundUser(userID: String, userName: String?) {
-        let contact = Contact.init(name: userID, message: nil, date: Date(), online: true, hasUnreadedMessages: false)
-        contacts.append(contact)
+extension ConversationsListViewController: ContactsDelegate {
+    func contactCreated(withUser: String) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
-    func didLostUser(userID: String) {
-        contacts = contacts.filter({ $0.name != userID  })
-        
+    func contactUpdated(withUser: String) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
-    func failedToStartBrowsingForUsers(error: Error) {
-    
-    }
-    
-    func failedToStartAdvertising(error: Error) {
-    
-    }
-    
-    func didRecievedMessage(text: String, fromUser: String, toUser: String) {
-    
+    func contactDestroyed(withUser: String) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
