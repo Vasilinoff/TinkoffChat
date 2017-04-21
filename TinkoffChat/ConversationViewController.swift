@@ -82,6 +82,8 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     @IBAction func messageTextFieldChanged(_ sender: UITextField) {
         if (messageTextField.text != "") {
             sendMessageButton.isEnabled = true
+        } else {
+            sendMessageButton.isEnabled = false
         }
     }
     
@@ -89,6 +91,8 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func sendMessageAction(_ sender: UIButton) {
         contactManager.send(message: messageTextField.text!)
+        messageTextField.text = ""
+        
     }
     
     //MARK: соответствуем протоколу
@@ -127,9 +131,18 @@ extension ConversationViewController: ContactManagerDelegate {
         }
     }
     func becomeOnline() {
-        
+        contactManager.activeContact?.online = true
+        sendMessageButton.isEnabled = true
+        DispatchQueue.main.async {
+            self.messagesTableView.reloadData()
+        }
+
     }
     func becomeOffline() {
-        
+        contactManager.activeContact?.online = false
+        sendMessageButton.isEnabled = false
+        DispatchQueue.main.async {
+            self.messagesTableView.reloadData()
+        }
     }
 }

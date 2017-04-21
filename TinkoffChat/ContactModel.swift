@@ -20,9 +20,10 @@ class Contact: ConversationCellConfiguration {
     let name: String
     var lastMessage: Message? {
         get {
-            return messages.last!
+                return messages.last!
         }
     }
+    
     var messages: [Message]
     //var date: Date?
     var online: Bool
@@ -31,7 +32,6 @@ class Contact: ConversationCellConfiguration {
         self.name = name
         self.online = online
         self.hasUnreadedMessages = hasUnreadedMessages
-        //self.lastMessage = Message(text: nil, recieved: false)
         self.messages = [messages]
         
     }

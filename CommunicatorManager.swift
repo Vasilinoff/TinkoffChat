@@ -51,7 +51,7 @@ extension CommunicatorManager: ContactManager {
 
 extension CommunicatorManager: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
-        let contact = Contact.init(name: userID, online: true, hasUnreadedMessages: false, messages: Message(text: nil, received: false, date: Date()))
+        let contact = Contact.init(name: userID, online: true, hasUnreadedMessages: false, messages: Message(text: nil, received: false, date: nil))
         contacts.append(contact)
         
         contactsDelegate?.contactCreated(withUser: userID)
@@ -63,7 +63,7 @@ extension CommunicatorManager: CommunicatorDelegate {
 
     func didLostUser(userID: String) {
         contacts = contacts.filter({ $0.name != userID  })
-        
+        contacts.first?.online = false
         contactsDelegate?.contactDestroyed(withUser: userID)
         
         if userID == activeContact?.name {

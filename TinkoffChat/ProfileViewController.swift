@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         self.dismiss(animated: true, completion: nil)
     }
     
-    var data = ProfileData(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
+    var data = Profile(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
     var gcdDataManager: DataManager = GCDDataManager()
     var operationDataManager: DataManager = OperationDataManager()
     
@@ -172,18 +172,18 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     }
     
     //MARK: заполняем дату значениями
-    func setValues() -> ProfileData {
+    func setValues() -> Profile {
         let name = userNameTextField.text
         let about = aboutTextView.text
         let profileImage = userImageView.image
         let color = textColorLabel.textColor
         
         if let nameValue = name, let aboutValue = about, let imageVale = profileImage, let colorValue = color {
-            let newProfileData = ProfileData(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
+            let newProfileData = Profile(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
             return newProfileData
             
         } else {
-            let newProfileData = ProfileData(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: .black)
+            let newProfileData = Profile(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: .black)
             return newProfileData
         }
     }

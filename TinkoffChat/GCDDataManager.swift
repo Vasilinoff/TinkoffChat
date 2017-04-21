@@ -16,17 +16,17 @@ class GCDDataManager: DataManager {
         return url!.appendingPathComponent("ProfileData").path
     }
     
-    func loadProfileData(handler: @escaping (ProfileData?, DataManagerError?) -> ()) {
+    func loadProfileData(handler: @escaping (Profile?, DataManagerError?) -> ()) {
         
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
-            if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath) as? ProfileData {
+            if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath) as? Profile {
                 handler(ourData, .loadError)
             }
         }
     }
     
-    func save(profileData: ProfileData, handler: @escaping (DataManagerError?) -> () ) {
+    func save(profileData: Profile, handler: @escaping (DataManagerError?) -> () ) {
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
             NSKeyedArchiver.archiveRootObject(profileData, toFile: self.filePath)

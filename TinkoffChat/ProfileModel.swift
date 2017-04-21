@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProfileData: NSObject, NSCoding {
+class Profile: NSObject, NSCoding {
     
     enum Keys: String {
         case name
@@ -23,8 +23,8 @@ class ProfileData: NSObject, NSCoding {
     var profileImage = #imageLiteral(resourceName: "placeholder")
     var colorValue = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     
-    static func create(fromData data: Data) -> ProfileData? {
-        return NSKeyedUnarchiver.unarchiveObject(with: data) as? ProfileData
+    static func create(fromData data: Data) -> Profile? {
+        return NSKeyedUnarchiver.unarchiveObject(with: data) as? Profile
     }
     
     init(name: String, about: String, image: UIImage, color: UIColor) {

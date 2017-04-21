@@ -14,6 +14,6 @@ enum DataManagerError: Error {
 }
 
 protocol DataManager {
-    func save(profileData: ProfileData, handler: @escaping (DataManagerError?) -> () )
-    func loadProfileData(handler: @escaping (ProfileData?, DataManagerError?) ->() )
+    func save(profileData: Profile, handler: @escaping (DataManagerError?) -> () )
+    func loadProfileData(handler: @escaping (Profile?, DataManagerError?) ->() )
 }

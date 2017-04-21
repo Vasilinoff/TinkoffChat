@@ -15,10 +15,10 @@ class OperationDataManager: DataManager {
         return queue
     }()
     
-    func loadProfileData(handler: @escaping (ProfileData?, DataManagerError?) -> () ) {
+    func loadProfileData(handler: @escaping (Profile?, DataManagerError?) -> () ) {
         let loadOperation = LoadDataOperation(fileName: "ProfileData")
         loadOperation.completionBlock = {
-            guard let data = loadOperation.data, let profileData = ProfileData.create(fromData: data) else {
+            guard let data = loadOperation.data, let profileData = Profile.create(fromData: data) else {
                 handler(nil, .loadError)
                 return
             }
@@ -29,7 +29,7 @@ class OperationDataManager: DataManager {
         operationQueue.addOperation(loadOperation)
     }
     
-    func save(profileData: ProfileData, handler: @escaping (DataManagerError?) -> () ) {
+    func save(profileData: Profile, handler: @escaping (DataManagerError?) -> () ) {
         let saveOperation = SaveDataOperation(data: profileData.binaryData, fileName: "ProfileData")
         saveOperation.completionBlock =  {
             handler(.saveError)

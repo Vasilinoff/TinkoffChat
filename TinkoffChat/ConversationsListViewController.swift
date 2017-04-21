@@ -68,8 +68,14 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 
         let contact = (indexPath.section == 0 ? contactsOnline : contactsOffline)[indexPath.row]
         contactCell.nameLabel.text = contact.name
-        contactCell.dateLabel.text = dateFormatter.string(from: (contact.lastMessage?.date)!)
         
+        if contact.lastMessage?.text != nil {
+            contactCell.dateLabel?.isHidden = false
+            contactCell.dateLabel?.text = dateFormatter.string(from: (contact.lastMessage?.date)!)
+        } else {
+            contactCell.messageLabel?.text = "No messages yet"
+            contactCell.dateLabel?.isHidden = true
+        }
         if contact.online {
             contactCell.backgroundColor = UIColor(red: 243/255, green: 232/255, blue: 234/255, alpha: 1.0)
         } else {
@@ -78,11 +84,12 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         
         if let message = contact.lastMessage {
             contactCell.messageLabel.text = message.text
-        } else {
-            contactCell.messageLabel.text = "No messages yet"
-            contactCell.messageLabel.font = UIFont.italicSystemFont(ofSize: 16.0)
-            contactCell.dateLabel.isHidden = true
         }
+//        else {
+//            contactCell.messageLabel.text = "No messages yet"
+//            contactCell.messageLabel.font = UIFont.italicSystemFont(ofSize: 16.0)
+//            contactCell.dateLabel?.text = " "
+//        }
         
         if contact.hasUnreadedMessages {
             contactCell.messageLabel.font = UIFont.boldSystemFont(ofSize: 18.0)

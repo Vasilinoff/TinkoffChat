@@ -18,11 +18,10 @@ class Message: MessageCellConfiguration {
     let date: Date?
     private var dateFormaеter: DateFormatter?
     
-    init(text: String?, received: Bool, date: Date) {
+    init(text: String?, received: Bool, date: Date?) {
         self.text = text
         self.received = received
         self.date = date
-        
     }
     
 }
