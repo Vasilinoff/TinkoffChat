@@ -14,25 +14,23 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     
     let serviceManager = CommunicatorManager()
     
-    var contacts: [Contact] {
+    var conversations: [ConversationCellConfiguration] {
         get {
-            return serviceManager.contacts
+            return serviceManager.transportContacts
         }
     }
     //MARK: Фильтр для онлайн
-    var contactsOnline: [Contact] {
+    var conversationsOnline: [ConversationCellConfiguration] {
         get {
-            return contacts.filter({ $0.online })
+            return conversations.filter({ $0.online })
         }
     }
     //MARK: Фильтр для офлайн
-    var contactsOffline: [Contact] {
+    var conversationsOffline: [ConversationCellConfiguration] {
         get {
-            return contacts.filter({ (!$0.online)&&($0.lastMessage != nil)  })
+            return conversations.filter({ (!$0.online)  })
         }
     }
-    
-    
     
     private var sectionHeaderTitles = ["Online", "History"]
     
@@ -49,7 +47,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 
     //MARK: функции для протокола
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (section == 0 ? contactsOnline : contactsOffline).count
+        return (section == 0 ? conversationsOnline : conversationsOffline).count
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionHeaderTitles.count
@@ -65,13 +63,12 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
 
-
-        let contact = (indexPath.section == 0 ? contactsOnline : contactsOffline)[indexPath.row]
+        let contact = (indexPath.section == 0 ? conversationsOnline : conversationsOffline)[indexPath.row]
         contactCell.nameLabel.text = contact.name
         
-        if contact.lastMessage?.text != nil {
+        if contact.lastMessageText != nil {
             contactCell.dateLabel?.isHidden = false
-            contactCell.dateLabel?.text = dateFormatter.string(from: (contact.lastMessage?.date)!)
+            contactCell.dateLabel?.text = dateFormatter.string(from: (contact.lastMessageDate)!)
         } else {
             contactCell.messageLabel?.text = "No messages yet"
             contactCell.dateLabel?.isHidden = true
@@ -82,22 +79,16 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
             contactCell.backgroundColor = UIColor.white
         }
         
-        if let message = contact.lastMessage {
-            contactCell.messageLabel.text = message.text
-        }
-//        else {
-//            contactCell.messageLabel.text = "No messages yet"
-//            contactCell.messageLabel.font = UIFont.italicSystemFont(ofSize: 16.0)
-//            contactCell.dateLabel?.text = " "
-//        }
-        
+        if let message = contact.lastMessageText {
+            contactCell.messageLabel.text = message        }
+
         if contact.hasUnreadedMessages {
             contactCell.messageLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         } else {
             contactCell.messageLabel.font = UIFont.systemFont(ofSize: 16.0)
         }
 
-        contactCell.detailTextLabel?.text = contact.lastMessage?.text
+        contactCell.detailTextLabel?.text = contact.lastMessageText
         
         return contactCell
     }
@@ -108,7 +99,10 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
                 let path = tableView.indexPathForSelectedRow
                 controller.contactManager = serviceManager as ContactManager
                 
-                serviceManager.activeContact = contacts[path!.row]
+                let cell = tableView.cellForRow(at: path!) as! ContactTableViewCell
+                let name = cell.nameLabel.text
+                
+                serviceManager.activeContactName = name
                 serviceManager.activeContactDelegate = controller
             }
         }
@@ -116,21 +110,10 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 }
 
 extension ConversationsListViewController: ContactsDelegate {
-    func contactCreated(withUser: String) {
+    func contactListUpdated() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
-    func contactUpdated(withUser: String) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    func contactDestroyed(withUser: String) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
 }

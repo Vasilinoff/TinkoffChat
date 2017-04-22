@@ -120,7 +120,7 @@
 			name = ServiceLayer;
 			sourceTree = "<group>";
 		};
-		D9C668A51EAA426E00F555D5 /* PresentalLayer */ = {
+		D9C668A51EAA426E00F555D5 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
 				D912BE9D1E85B30800C53CB2 /* Model */,
@@ -128,7 +128,7 @@
 				D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */,
 				D9CD8E741E86942E004CD465 /* MessageCell.swift */,
 			);
-			name = PresentalLayer;
+			name = PresentationLayer;
 			sourceTree = "<group>";
 		};
 		D9F756B61E6DF37500F81911 = {
@@ -151,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				D9F756C21E6DF37500F81911 /* AppDelegate.swift */,
-				D9C668A51EAA426E00F555D5 /* PresentalLayer */,
+				D9C668A51EAA426E00F555D5 /* PresentationLayer */,
 				D9F756C61E6DF37500F81911 /* Main.storyboard */,
 				D9F756C91E6DF37500F81911 /* Assets.xcassets */,
 				D9F756CB1E6DF37500F81911 /* LaunchScreen.storyboard */,

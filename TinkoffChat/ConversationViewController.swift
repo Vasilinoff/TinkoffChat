@@ -24,13 +24,9 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    var messages: [Message] {
+    var messages: [MessageCellConfiguration] {
         get {
-            return contactManager.activeContact?.messages ?? []
-        }
-        
-        set {
-            contactManager.activeContact!.messages = newValue
+            return contactManager.activeContactMessages!
         }
     }
     
@@ -51,6 +47,7 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
         
         self.title = name
     }
+    
     func keyboardWillShow(_ notification: Notification) {
         if let info = notification.userInfo, let keyboardFrame = info [UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let frame = keyboardFrame.cgRectValue
@@ -61,6 +58,7 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
             }
         }
     }
+    
     func keyboardWillHide(_ notification: Notification) {
         textFieldBottomConstrain.constant = 40
         sendButtonBottomConstrain.constant = 40
@@ -79,6 +77,7 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
     @IBAction func messageTextFieldChanged(_ sender: UITextField) {
         if (messageTextField.text != "") {
             sendMessageButton.isEnabled = true
@@ -87,12 +86,12 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    
-    
     @IBAction func sendMessageAction(_ sender: UIButton) {
         contactManager.send(message: messageTextField.text!)
         messageTextField.text = ""
-        
+        DispatchQueue.main.async {
+            self.messagesTableView.reloadData()
+        }
     }
     
     //MARK: соответствуем протоколу
@@ -105,23 +104,21 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
+        var cell: MessageCell
         if messages[indexPath.row].received {
-            let cell = messagesTableView.dequeueReusableCell(withIdentifier: "received", for: indexPath) as! MessageCell
-            cell.textOfMessage.text = messages[indexPath.row].text
-            
-            return cell
+            cell = messagesTableView.dequeueReusableCell(withIdentifier: "received", for: indexPath) as! MessageCell
         } else {
-            let cell = messagesTableView.dequeueReusableCell(withIdentifier: "sended", for: indexPath) as! MessageCell
-            
-            cell.textOfMessage.text = messages[indexPath.row].text
-            return cell
+            cell = messagesTableView.dequeueReusableCell(withIdentifier: "sended", for: indexPath) as! MessageCell
         }
         
+        cell.textOfMessage.text = messages[indexPath.row].text
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        cell.dateOfMessage?.text = dateFormatter.string(from: (messages[indexPath.row].date))
+        
+        return cell
     }
-    
-    
 }
 
 extension ConversationViewController: ContactManagerDelegate {
@@ -131,15 +128,12 @@ extension ConversationViewController: ContactManagerDelegate {
         }
     }
     func becomeOnline() {
-        contactManager.activeContact?.online = true
         sendMessageButton.isEnabled = true
         DispatchQueue.main.async {
             self.messagesTableView.reloadData()
         }
-
     }
     func becomeOffline() {
-        contactManager.activeContact?.online = false
         sendMessageButton.isEnabled = false
         DispatchQueue.main.async {
             self.messagesTableView.reloadData()

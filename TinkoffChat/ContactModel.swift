@@ -8,31 +8,47 @@
 
 import Foundation
 
-protocol ConversationCellConfiguration {
+protocol ConversationCellConfiguration: class {
     var name: String { get }
-    //var lastMessage: Message? { get set }
-    //var date: Date? { get set }
-    var online: Bool { get set }
-    var hasUnreadedMessages: Bool { get set }
+    var lastMessageText: String? { get }
+    var lastMessageDate: Date? { get }
+    var online: Bool { get }
+    var hasUnreadedMessages: Bool { get }
 }
 
 class Contact: ConversationCellConfiguration {
     let name: String
-    var lastMessage: Message? {
+    
+    var messages: [Message]
+    var online: Bool
+    
+    private var lastMessage: Message? {
         get {
-                return messages.last!
+            return messages.last
         }
     }
     
-    var messages: [Message]
-    //var date: Date?
-    var online: Bool
-    var hasUnreadedMessages: Bool
-    init(name: String, online: Bool, hasUnreadedMessages: Bool, messages: Message) {
+    var lastMessageText: String? {
+        get {
+            return lastMessage?.text
+        }
+    }
+    
+    var lastMessageDate: Date? {
+        get {
+            return lastMessage?.date
+        }
+    }
+    var hasUnreadedMessages: Bool {
+        get {
+            return true
+        }
+    }
+    
+    init(name: String, online: Bool, messages: [Message]) {
         self.name = name
         self.online = online
-        self.hasUnreadedMessages = hasUnreadedMessages
-        self.messages = [messages]
+        self.messages = messages
         
     }
 }

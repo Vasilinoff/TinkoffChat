@@ -136,9 +136,10 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate {
             print("can't remove session")
             return
         }
-        
         session.disconnect()
         sessions.removeValue(forKey: peerID.displayName)
+        delegate?.didLostUser(userID: peerID.displayName)
+
     }
 }
 

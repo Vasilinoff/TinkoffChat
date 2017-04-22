@@ -11,6 +11,7 @@ import UIKit
 class MessageCell: UITableViewCell {
 
     @IBOutlet weak var textOfMessage: UILabel!
+    @IBOutlet weak var dateOfMessage: UILabel!
     
 
 }

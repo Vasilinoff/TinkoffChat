@@ -18,10 +18,21 @@ class OperationDataManager: DataManager {
     func loadProfileData(handler: @escaping (Profile?, DataManagerError?) -> () ) {
         let loadOperation = LoadDataOperation(fileName: "ProfileData")
         loadOperation.completionBlock = {
-            guard let data = loadOperation.data, let profileData = Profile.create(fromData: data) else {
+            if loadOperation.data?.count == 0 {
                 handler(nil, .loadError)
                 return
             }
+            
+            guard let data = loadOperation.data else {
+                handler(nil, .loadError)
+                return
+            }
+            
+            guard let profileData = Profile.create(fromData: data) else {
+                handler(nil, .loadError)
+                return
+            }
+
             
             handler(profileData, nil)
         }
