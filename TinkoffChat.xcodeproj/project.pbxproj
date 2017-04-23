@@ -11,7 +11,7 @@
 		D912BE9F1E85B32100C53CB2 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912BE9E1E85B32100C53CB2 /* ContactModel.swift */; };
 		D91826AE1E901A420079E533 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91826AD1E901A420079E533 /* ProfileModel.swift */; };
 		D944D8BE1E85E0F4004BAD8F /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */; };
-		D9BC87861EA0DC7C006701EC /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BC87851EA0DC7C006701EC /* CommunicatorManager.swift */; };
+		D9A40D741EAD0082006445CC /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A40D731EAD0082006445CC /* CommunicatorManager.swift */; };
 		D9C350511E954F6400E08854 /* Communitator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C350501E954F6400E08854 /* Communitator.swift */; };
 		D9CD8E731E868FFF004CD465 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */; };
 		D9CD8E751E86942E004CD465 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E741E86942E004CD465 /* MessageCell.swift */; };
@@ -33,7 +33,7 @@
 		D912BE9E1E85B32100C53CB2 /* ContactModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		D91826AD1E901A420079E533 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
-		D9BC87851EA0DC7C006701EC /* CommunicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommunicatorManager.swift; path = ../CommunicatorManager.swift; sourceTree = "<group>"; };
+		D9A40D731EAD0082006445CC /* CommunicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
 		D9C350501E954F6400E08854 /* Communitator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communitator.swift; sourceTree = "<group>"; };
 		D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		D9CD8E741E86942E004CD465 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -66,21 +66,21 @@
 		D912BE9D1E85B30800C53CB2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D91826AD1E901A420079E533 /* ProfileModel.swift */,
 				D912BE9E1E85B32100C53CB2 /* ContactModel.swift */,
 				D9CD8E761E869828004CD465 /* MessageModel.swift */,
+				D91826AD1E901A420079E533 /* ProfileModel.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D9BC87841EA0DA10006701EC /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */,
 				D912BE9B1E85A5FB00C53CB2 /* ConversationsListViewController.swift */,
 				D9F756C41E6DF37500F81911 /* ProfileViewController.swift */,
-				D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */,
 			);
-			name = VC;
+			path = VC;
 			sourceTree = "<group>";
 		};
 		D9C668A11EAA411F00F555D5 /* CoreLayer */ = {
@@ -89,7 +89,7 @@
 				D9C668A31EAA414E00F555D5 /* Data */,
 				D9C668A21EAA413C00F555D5 /* Networking */,
 			);
-			name = CoreLayer;
+			path = CoreLayer;
 			sourceTree = "<group>";
 		};
 		D9C668A21EAA413C00F555D5 /* Networking */ = {
@@ -97,27 +97,27 @@
 			children = (
 				D9C350501E954F6400E08854 /* Communitator.swift */,
 			);
-			name = Networking;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		D9C668A31EAA414E00F555D5 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				D9F9EF551E92C04D002EAE57 /* DataManager.swift */,
-				D9F9EF521E92BF19002EAE57 /* OperationDataManager.swift */,
 				D9ED50201E917AEF00300278 /* GCDDataManager.swift */,
-				D9F9EF501E92910E002EAE57 /* SaveDataOperation.swift */,
 				D9F9EF571E92CC16002EAE57 /* LoadDataOperation.swift */,
+				D9F9EF521E92BF19002EAE57 /* OperationDataManager.swift */,
+				D9F9EF501E92910E002EAE57 /* SaveDataOperation.swift */,
 			);
-			name = Data;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		D9C668A41EAA41E000F555D5 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				D9BC87851EA0DC7C006701EC /* CommunicatorManager.swift */,
+				D9A40D731EAD0082006445CC /* CommunicatorManager.swift */,
 			);
-			name = ServiceLayer;
+			path = ServiceLayer;
 			sourceTree = "<group>";
 		};
 		D9C668A51EAA426E00F555D5 /* PresentationLayer */ = {
@@ -128,14 +128,14 @@
 				D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */,
 				D9CD8E741E86942E004CD465 /* MessageCell.swift */,
 			);
-			name = PresentationLayer;
+			path = PresentationLayer;
 			sourceTree = "<group>";
 		};
 		D9F756B61E6DF37500F81911 = {
 			isa = PBXGroup;
 			children = (
-				D9F756C11E6DF37500F81911 /* TinkoffChat */,
 				D9F756C01E6DF37500F81911 /* Products */,
+				D9F756C11E6DF37500F81911 /* TinkoffChat */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,14 +150,14 @@
 		D9F756C11E6DF37500F81911 /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
-				D9F756C21E6DF37500F81911 /* AppDelegate.swift */,
-				D9C668A51EAA426E00F555D5 /* PresentationLayer */,
-				D9F756C61E6DF37500F81911 /* Main.storyboard */,
-				D9F756C91E6DF37500F81911 /* Assets.xcassets */,
-				D9F756CB1E6DF37500F81911 /* LaunchScreen.storyboard */,
-				D9C668A41EAA41E000F555D5 /* ServiceLayer */,
 				D9C668A11EAA411F00F555D5 /* CoreLayer */,
+				D9C668A51EAA426E00F555D5 /* PresentationLayer */,
+				D9C668A41EAA41E000F555D5 /* ServiceLayer */,
+				D9F756C21E6DF37500F81911 /* AppDelegate.swift */,
+				D9F756C91E6DF37500F81911 /* Assets.xcassets */,
 				D9F756CE1E6DF37500F81911 /* Info.plist */,
+				D9F756CB1E6DF37500F81911 /* LaunchScreen.storyboard */,
+				D9F756C61E6DF37500F81911 /* Main.storyboard */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -235,7 +235,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9BC87861EA0DC7C006701EC /* CommunicatorManager.swift in Sources */,
 				D9F9EF511E92910E002EAE57 /* SaveDataOperation.swift in Sources */,
 				D9C350511E954F6400E08854 /* Communitator.swift in Sources */,
 				D9ED50211E917AEF00300278 /* GCDDataManager.swift in Sources */,
@@ -251,6 +250,7 @@
 				D912BE9C1E85A5FB00C53CB2 /* ConversationsListViewController.swift in Sources */,
 				D9F9EF561E92C04D002EAE57 /* DataManager.swift in Sources */,
 				D9F9EF531E92BF19002EAE57 /* OperationDataManager.swift in Sources */,
+				D9A40D741EAD0082006445CC /* CommunicatorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +263,7 @@
 				D9F756C71E6DF37500F81911 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		D9F756CB1E6DF37500F81911 /* LaunchScreen.storyboard */ = {
@@ -271,6 +272,7 @@
 				D9F756CC1E6DF37500F81911 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
