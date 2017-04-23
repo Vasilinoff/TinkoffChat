@@ -107,8 +107,8 @@
 			children = (
 				D9F9EF551E92C04D002EAE57 /* DataManager.swift */,
 				D9ED50201E917AEF00300278 /* GCDDataManager.swift */,
-				D9F9EF521E92BF19002EAE57 /* OperationDataManager.swift */,
 				D9F9EF571E92CC16002EAE57 /* LoadDataOperation.swift */,
+				D9F9EF521E92BF19002EAE57 /* OperationDataManager.swift */,
 				D9F9EF501E92910E002EAE57 /* SaveDataOperation.swift */,
 			);
 			path = Data;
