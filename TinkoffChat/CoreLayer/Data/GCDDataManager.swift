@@ -10,27 +10,34 @@ import Foundation
 import UIKit
 
 class GCDDataManager: DataManager {
-        var filePath: String {
+    let fileName: String
+    var data: Data?
+    private var filePath: String {
         let manager = FileManager.default
         let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        return url!.appendingPathComponent("ProfileData").path
+        return url!.appendingPathComponent(fileName).path
     }
     
-    func loadProfileData(handler: @escaping (Profile?, DataManagerError?) -> ()) {
+    init( fileName: String) {
+        self.fileName = fileName
+    }
+    
+    func loadData(fromFile fileName: String, handler: @escaping (Data?, DataManagerError?) -> () ) {
         
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
-            if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath) as? Profile {
-                handler(ourData, .loadError)
-            }
+            let fileHandle = FileHandle.init(forReadingAtPath: self.filePath)
+            self.data = fileHandle?.readDataToEndOfFile()
+            handler(self.data, .loadError)
         }
     }
     
-    func save(profileData: Profile, handler: @escaping (DataManagerError?) -> () ) {
+    func save(data: Data, toFile fileName: String, handler: @escaping (DataManagerError?) -> () ) {
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
-            NSKeyedArchiver.archiveRootObject(profileData, toFile: self.filePath)
-            handler(.loadError)
+            let manager = FileManager.default
+            manager.createFile(atPath: self.filePath, contents: data, attributes: nil)
+            handler(.saveError)
         }
     }
 }

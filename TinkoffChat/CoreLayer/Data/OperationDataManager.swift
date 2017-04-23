@@ -15,8 +15,8 @@ class OperationDataManager: DataManager {
         return queue
     }()
     
-    func loadProfileData(handler: @escaping (Profile?, DataManagerError?) -> () ) {
-        let loadOperation = LoadDataOperation(fileName: "ProfileData")
+    func loadData(fromFile fileName: String, handler: @escaping (Data?, DataManagerError?) -> () ) {
+        let loadOperation = LoadDataOperation(fileName: fileName)
         loadOperation.completionBlock = {
             if loadOperation.data?.count == 0 {
                 handler(nil, .loadError)
@@ -28,20 +28,14 @@ class OperationDataManager: DataManager {
                 return
             }
             
-            guard let profileData = Profile.create(fromData: data) else {
-                handler(nil, .loadError)
-                return
-            }
-
-            
-            handler(profileData, nil)
+            handler(data, nil)
         }
         
         operationQueue.addOperation(loadOperation)
     }
     
-    func save(profileData: Profile, handler: @escaping (DataManagerError?) -> () ) {
-        let saveOperation = SaveDataOperation(data: profileData.binaryData, fileName: "ProfileData")
+    func save(data: Data, toFile fileName: String, handler: @escaping (DataManagerError?) -> () ) {
+        let saveOperation = SaveDataOperation(data: data, fileName: fileName)
         saveOperation.completionBlock =  {
             handler(.saveError)
         }

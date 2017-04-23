@@ -15,9 +15,9 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     }
     
     var data = Profile(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
-    var gcdDataManager: DataManager = GCDDataManager()
-    var operationDataManager: DataManager = OperationDataManager()
-    
+    let profileGCDDataManager = ProfileDataManager(metod: .GCD)
+    let profileOperationDataManager = ProfileDataManager(metod: .Operation)
+
     @IBOutlet weak var aboutTextView: UITextView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var textColorLabel: UILabel!
@@ -42,7 +42,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         //-----Для того чтобы проверить load с помощью GCD
         //-----Нужно изменить operationDataManager на GCDDataManager, оставив такой же метод
         
-        operationDataManager.loadProfileData { (profileData, error) in
+        profileOperationDataManager.loadProfileData { (profileData, error) in
             guard let profileData = profileData else {
                 print("error")
                 return
@@ -81,7 +81,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         setButtonsDisable()
         let newProfileData = setValues()
             
-        gcdDataManager.save(profileData: newProfileData) { (error) in
+        profileGCDDataManager.save(profileData: newProfileData) { (error) in
                 
         if error == nil {
                 
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         setButtonsDisable()
         let newProfileData = setValues()
             
-        operationDataManager.save(profileData: newProfileData) { (error) in
+        profileOperationDataManager.save(profileData: newProfileData) { (error) in
                 
             if error == nil {
                 
