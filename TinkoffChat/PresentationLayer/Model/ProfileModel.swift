@@ -63,4 +63,14 @@ class ProfileModel: NSObject, NSCoding {
             return NSKeyedArchiver.archivedData(withRootObject: self)
         }
     }
+    
+    func createCopyWithChange(name: String? = nil, about: String? = nil, image: UIImage? = nil) -> ProfileModel {
+        
+        let copyName = name ?? self.nameValue
+        let copyAbout = about ?? self.aboutValue
+        let copyImage = image ?? self.profileImage
+        
+        return ProfileModel.init(name: copyName, about: copyAbout, image: copyImage, color: .b)
+    }
+    
 }

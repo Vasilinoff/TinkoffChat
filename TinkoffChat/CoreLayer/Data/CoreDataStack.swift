@@ -85,7 +85,7 @@ class CoreDataStack {
     }
     
     private var _mainContext: NSManagedObjectContext?
-    private var mainContext: NSManagedObjectContext? {
+    public var mainContext: NSManagedObjectContext? {
         get {
             if _mainContext == nil {
                 let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
@@ -148,50 +148,40 @@ class CoreDataStack {
         }
     }
     
-    static func insertProfile(in context : NSManagedObjectContext) -> Profile? {
-        if let profile = NSEntityDescription.insertNewObject(forEntityName: "Profile", into: context) as? Profile  {
-            if profile.name == nil {
-                profile.name = "name"
-                profile.about = "about"
-                
-                let img = UIImage(named: "f.png")
-                let imgData = UIImageJPEGRepresentation(img!, 1)
-                
-                profile.setValue(imgData, forKey: "photo")
-                
-                return profile
-            }
-            return profile
-        }
-        else {
-            return nil
-        }
-    }
-    
-    static func findOrInserNewProfile( in context: NSManagedObjectContext) -> Profile? {
-        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
-            print("Model is not available in context")
-            assert(false)
-            return nil
-        }
-        
-        var profile: Profile?
-        guard let fetchRequest = Profile.fetchRequestProfile(model: model) else {
-            return nil
-        }
-        return profile
-    }
-}
+//    static func insertProfile(in context : NSManagedObjectContext) -> Profile? {
+//        if let profile = NSEntityDescription.insertNewObject(forEntityName: "Profile", into: context) as? Profile  {
+//            if profile.name == nil {
+//                profile.name = "name"
+//                profile.about = "about"
+//                
+//                let img = UIImage(named: "placeholder")
+//                let imgData = UIImageJPEGRepresentation(img!, 1)
+//                
+//                profile.setValue(imgData, forKey: "photo")
+//                
+//                return profile
+//            }
+//            return profile
+//        }
+//        else {
+//            return nil
+//        }
+//    }
+//    
+//    static func findOrInserNewProfile( in context: NSManagedObjectContext) -> Profile? {
+//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
+//            print("Model is not available in context")
+//            assert(false)
+//            return nil
+//        }
+//        
+//        var profile: Profile?
+//        guard let fetchRequest = Profile.fetchRequestProfile(model: model) else {
+//            return nil
+//        }
+//        return profile
+//    }
+//}
 
-extension Profile {
-    static func fetchRequestProfile(model: NSManagedObjectModel) -> NSFetchRequest<Profile>? {
-        let templateName = "Profile"
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<Profile> else {
-            assert(false, "No template with name \(templateName)")
-            return nil
-        }
-        
-        return fetchRequest
-    }
-}
 
+}

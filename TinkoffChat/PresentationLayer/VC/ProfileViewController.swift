@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+    fileprivate let profileSaveService = ProfileSaveService()
     
     var data = ProfileModel(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
     let profileGCDDataManager = ProfileDataManager(metod: .GCD)
@@ -119,36 +119,34 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         setButtonsDisable()
         let newProfileData = setValues()
         
-        let profile = CoreDataStack.insertProfile(in: CoreDataStack.sharedCoreDataStack.saveContext!)
-        CoreDataStack.sharedCoreDataStack.performSave(context: CoreDataStack.sharedCoreDataStack.saveContext!, completionHandler: nil)
+        profileSaveService.saveProfileData(newProfileData) { success, error in
+            if error == nil {
+                
+                DispatchQueue.main.async {
+                    let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
+                    let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
+                        self.operationSaveButton(self.operationButton)
+                    }
+                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertSaveController.addAction(againAction)
+                    alertSaveController.addAction(okAction)
+                    
+                    self.present(alertSaveController, animated: true, completion: nil)
+                }
+            }
             
-//        profileOperationDataManager.save(profileData: newProfileData) { (error) in
-//                
-//            if error == nil {
-//                
-//                DispatchQueue.main.async {
-//                    let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
-//                    let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
-//                        self.operationSaveButton(self.operationButton)
-//                    }
-//                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-//                    alertSaveController.addAction(againAction)
-//                    alertSaveController.addAction(okAction)
-//                    
-//                    self.present(alertSaveController, animated: true, completion: nil)
-//                }
-//            } else {
-//                DispatchQueue.main.async {
-//                    let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
-//                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-//                    alertSaveController.addAction(okAction)
-//                    self.present(alertSaveController, animated: true, completion: nil)
-//                }
-//            }
-//            DispatchQueue.main.async {
-//                self.loadingIndicator.stopAnimating()
-//            }
-//        }
+            if success {
+                DispatchQueue.main.async {
+                    let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertSaveController.addAction(okAction)
+                    self.present(alertSaveController, animated: true, completion: nil)
+                }
+            }
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+            }
+        }
         
     }
     //MARK: меняем цвет текста и активируем кнопки сохранения
