@@ -25,27 +25,12 @@ extension Profile {
 class ProfileSaveService {
     fileprivate let coreDataStack = CoreDataStack.sharedCoreDataStack
     
-    func loadProfileData(completion: @escaping (ProfileModel?, Error?) -> Void) {
-        var profileModel: ProfileModel?
-        if let context = coreDataStack.mainContext {
-            if let profile = findOrInsertProfile(in: context) {
-                if let profileImage = profile.image {
-                    let avatar = UIImage(data: profileImage as Data)
-                    profileModel = ProfileModel.init(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: .black)
-                    profileModel = profileModel?.createCopyWithChange(name: profile.name, about: profile.about, image: avatar)
-                }
-            }
-        }
-        
-        completion(profileModel, nil)
-    }
-    
     func saveProfileData(_ profileModel: ProfileModel, completion: @escaping (Bool, Error?) -> Void) {
         if let context = coreDataStack.saveContext {
             if let profile = findOrInsertProfile(in: context) {
                 profile.name = profileModel.nameValue
                 profile.about = profileModel.aboutValue
-                profile.image = UIImageJPEGRepresentation(profileModel.profileImage, 1.0) as NSData?
+                profile.image = UIImageJPEGRepresentation(profileModel.profileImage, 1.0) as Data?
             }
             
             performSave(context: context, completionHandler: completion)
@@ -86,6 +71,21 @@ class ProfileSaveService {
     fileprivate func insertProfile(in context: NSManagedObjectContext) -> Profile? {
         return NSEntityDescription.insertNewObject(forEntityName: "Profile", into: context) as? Profile
     }
+
+    
+    func loadProfileData(completion: @escaping (ProfileModel?, Error?) -> Void) {
+        var profileModel: ProfileModel?
+        if let context = coreDataStack.mainContext {
+            if let profile = findOrInsertProfile(in: context) {
+                if let profileImage = profile.image {
+                    let image = UIImage(data: profileImage as Data)
+                    profileModel = ProfileModel(name: profile.name, about: profile.about, image: image)
+                }
+            }
+        }
+        
+        completion(profileModel, nil)
+    }
     
     fileprivate func performSave(context: NSManagedObjectContext, completionHandler: @escaping (Bool, Error?) -> Void) {
         if context.hasChanges {
@@ -112,5 +112,5 @@ class ProfileSaveService {
             completionHandler(true, nil)
         }
     }
-
+    
 }

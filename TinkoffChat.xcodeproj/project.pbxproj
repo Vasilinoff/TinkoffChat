@@ -12,24 +12,19 @@
 		D91826AE1E901A420079E533 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91826AD1E901A420079E533 /* ProfileModel.swift */; };
 		D944D8BE1E85E0F4004BAD8F /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */; };
 		D960CC1B1EB0C5910075E52A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960CC1A1EB0C5910075E52A /* CoreDataStack.swift */; };
-		D96578E31EAD1340009C4F19 /* ProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96578E21EAD1340009C4F19 /* ProfileDataManager.swift */; };
 		D96850BD1EB8BC4000EF351A /* ProfileSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */; };
+		D96850C81EB9045100EF351A /* CoreDataEntityClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96850C71EB9045100EF351A /* CoreDataEntityClass.swift */; };
 		D96CA6131EB7FF3F0049959A /* ProfileDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D96CA6111EB7FF3F0049959A /* ProfileDataModel.xcdatamodeld */; };
 		D9A40D741EAD0082006445CC /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A40D731EAD0082006445CC /* CommunicatorManager.swift */; };
 		D9C350511E954F6400E08854 /* Communitator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C350501E954F6400E08854 /* Communitator.swift */; };
 		D9CD8E731E868FFF004CD465 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */; };
 		D9CD8E751E86942E004CD465 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E741E86942E004CD465 /* MessageCell.swift */; };
 		D9CD8E771E869828004CD465 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD8E761E869828004CD465 /* MessageModel.swift */; };
-		D9ED50211E917AEF00300278 /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ED50201E917AEF00300278 /* GCDDataManager.swift */; };
 		D9F756C31E6DF37500F81911 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F756C21E6DF37500F81911 /* AppDelegate.swift */; };
 		D9F756C51E6DF37500F81911 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F756C41E6DF37500F81911 /* ProfileViewController.swift */; };
 		D9F756C81E6DF37500F81911 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9F756C61E6DF37500F81911 /* Main.storyboard */; };
 		D9F756CA1E6DF37500F81911 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9F756C91E6DF37500F81911 /* Assets.xcassets */; };
 		D9F756CD1E6DF37500F81911 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9F756CB1E6DF37500F81911 /* LaunchScreen.storyboard */; };
-		D9F9EF511E92910E002EAE57 /* SaveDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9EF501E92910E002EAE57 /* SaveDataOperation.swift */; };
-		D9F9EF531E92BF19002EAE57 /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9EF521E92BF19002EAE57 /* OperationDataManager.swift */; };
-		D9F9EF561E92C04D002EAE57 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9EF551E92C04D002EAE57 /* DataManager.swift */; };
-		D9F9EF581E92CC16002EAE57 /* LoadDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9EF571E92CC16002EAE57 /* LoadDataOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,15 +33,14 @@
 		D91826AD1E901A420079E533 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		D960CC1A1EB0C5910075E52A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		D96578E21EAD1340009C4F19 /* ProfileDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDataManager.swift; sourceTree = "<group>"; };
 		D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSaveService.swift; sourceTree = "<group>"; };
+		D96850C71EB9045100EF351A /* CoreDataEntityClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityClass.swift; sourceTree = "<group>"; };
 		D96CA6121EB7FF3F0049959A /* ProfileDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProfileDataModel.xcdatamodel; sourceTree = "<group>"; };
 		D9A40D731EAD0082006445CC /* CommunicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
 		D9C350501E954F6400E08854 /* Communitator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communitator.swift; sourceTree = "<group>"; };
 		D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		D9CD8E741E86942E004CD465 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		D9CD8E761E869828004CD465 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
-		D9ED50201E917AEF00300278 /* GCDDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		D9F756BF1E6DF37500F81911 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9F756C21E6DF37500F81911 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9F756C41E6DF37500F81911 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -54,10 +48,6 @@
 		D9F756C91E6DF37500F81911 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9F756CC1E6DF37500F81911 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9F756CE1E6DF37500F81911 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9F9EF501E92910E002EAE57 /* SaveDataOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveDataOperation.swift; sourceTree = "<group>"; };
-		D9F9EF521E92BF19002EAE57 /* OperationDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
-		D9F9EF551E92C04D002EAE57 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		D9F9EF571E92CC16002EAE57 /* LoadDataOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadDataOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				D96CA6111EB7FF3F0049959A /* ProfileDataModel.xcdatamodeld */,
-				D9F9EF551E92C04D002EAE57 /* DataManager.swift */,
-				D9ED50201E917AEF00300278 /* GCDDataManager.swift */,
-				D9F9EF571E92CC16002EAE57 /* LoadDataOperation.swift */,
-				D9F9EF521E92BF19002EAE57 /* OperationDataManager.swift */,
-				D9F9EF501E92910E002EAE57 /* SaveDataOperation.swift */,
+				D96850C71EB9045100EF351A /* CoreDataEntityClass.swift */,
 				D960CC1A1EB0C5910075E52A /* CoreDataStack.swift */,
 			);
 			path = Data;
@@ -126,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				D9A40D731EAD0082006445CC /* CommunicatorManager.swift */,
-				D96578E21EAD1340009C4F19 /* ProfileDataManager.swift */,
 				D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */,
 			);
 			path = ServiceLayer;
@@ -163,8 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				D9C668A11EAA411F00F555D5 /* CoreLayer */,
-				D9C668A51EAA426E00F555D5 /* PresentationLayer */,
 				D9C668A41EAA41E000F555D5 /* ServiceLayer */,
+				D9C668A51EAA426E00F555D5 /* PresentationLayer */,
 				D9F756C21E6DF37500F81911 /* AppDelegate.swift */,
 				D9F756C91E6DF37500F81911 /* Assets.xcassets */,
 				D9F756CE1E6DF37500F81911 /* Info.plist */,
@@ -247,12 +232,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9F9EF511E92910E002EAE57 /* SaveDataOperation.swift in Sources */,
+				D96850C81EB9045100EF351A /* CoreDataEntityClass.swift in Sources */,
 				D9C350511E954F6400E08854 /* Communitator.swift in Sources */,
-				D9ED50211E917AEF00300278 /* GCDDataManager.swift in Sources */,
-				D96578E31EAD1340009C4F19 /* ProfileDataManager.swift in Sources */,
 				D9CD8E751E86942E004CD465 /* MessageCell.swift in Sources */,
-				D9F9EF581E92CC16002EAE57 /* LoadDataOperation.swift in Sources */,
 				D9F756C51E6DF37500F81911 /* ProfileViewController.swift in Sources */,
 				D91826AE1E901A420079E533 /* ProfileModel.swift in Sources */,
 				D960CC1B1EB0C5910075E52A /* CoreDataStack.swift in Sources */,
@@ -263,8 +245,6 @@
 				D9F756C31E6DF37500F81911 /* AppDelegate.swift in Sources */,
 				D912BE9F1E85B32100C53CB2 /* ContactModel.swift in Sources */,
 				D912BE9C1E85A5FB00C53CB2 /* ConversationsListViewController.swift in Sources */,
-				D9F9EF561E92C04D002EAE57 /* DataManager.swift in Sources */,
-				D9F9EF531E92BF19002EAE57 /* OperationDataManager.swift in Sources */,
 				D9A40D741EAD0082006445CC /* CommunicatorManager.swift in Sources */,
 				D96CA6131EB7FF3F0049959A /* ProfileDataModel.xcdatamodeld in Sources */,
 			);

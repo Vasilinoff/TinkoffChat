@@ -10,6 +10,8 @@ import Foundation
 import CoreData
 import UIKit
 
+
+
 class CoreDataStack {
     private var  storeURL: URL {
         get {
@@ -147,41 +149,6 @@ class CoreDataStack {
             completionHandler?()
         }
     }
+
     
-//    static func insertProfile(in context : NSManagedObjectContext) -> Profile? {
-//        if let profile = NSEntityDescription.insertNewObject(forEntityName: "Profile", into: context) as? Profile  {
-//            if profile.name == nil {
-//                profile.name = "name"
-//                profile.about = "about"
-//                
-//                let img = UIImage(named: "placeholder")
-//                let imgData = UIImageJPEGRepresentation(img!, 1)
-//                
-//                profile.setValue(imgData, forKey: "photo")
-//                
-//                return profile
-//            }
-//            return profile
-//        }
-//        else {
-//            return nil
-//        }
-//    }
-//    
-//    static func findOrInserNewProfile( in context: NSManagedObjectContext) -> Profile? {
-//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
-//            print("Model is not available in context")
-//            assert(false)
-//            return nil
-//        }
-//        
-//        var profile: Profile?
-//        guard let fetchRequest = Profile.fetchRequestProfile(model: model) else {
-//            return nil
-//        }
-//        return profile
-//    }
-//}
-
-
 }

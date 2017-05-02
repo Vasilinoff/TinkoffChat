@@ -9,53 +9,30 @@
 import Foundation
 import UIKit
 
-class ProfileModel: NSObject, NSCoding {
+class ProfileModel: NSObject {
     
     enum Keys: String {
         case name
         case about
         case image
-        case color
+        //case color
     }
     
     var nameValue = "your name"
     var aboutValue = "your information"
     var profileImage = #imageLiteral(resourceName: "placeholder")
-    var colorValue = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    //var colorValue = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     
     static func create(fromData data: Data) -> ProfileModel? {
         return NSKeyedUnarchiver.unarchiveObject(with: data) as? ProfileModel
     }
     
-    init(name: String, about: String, image: UIImage, color: UIColor) {
-        nameValue = name
-        aboutValue = about
-        profileImage = image
-        colorValue = color
+    init(name: String?, about: String?, image: UIImage?) {
+        nameValue = name ?? "your name"
+        aboutValue = about ?? "your information"
+        profileImage = image ?? #imageLiteral(resourceName: "placeholder")
+        //colorValue = color
         
-    }
-    
-    required init(coder decoder: NSCoder) {
-        if let nameObj = decoder.decodeObject(forKey: Keys.name.rawValue) as? String {
-            nameValue = nameObj
-        }
-        if let aboutObj = decoder.decodeObject(forKey: Keys.about.rawValue) as? String {
-            aboutValue = aboutObj
-        }
-        if let imageObj = decoder.decodeObject(forKey: Keys.image.rawValue) as? UIImage {
-            profileImage = imageObj
-        }
-        if let colorObj = decoder.decodeObject(forKey: Keys.color.rawValue) as? UIColor {
-            colorValue = colorObj
-        }
-        
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(nameValue, forKey: Keys.name.rawValue)
-        aCoder.encode(aboutValue, forKey: Keys.about.rawValue)
-        aCoder.encode(profileImage, forKey: Keys.image.rawValue)
-        aCoder.encode(colorValue, forKey: Keys.color.rawValue)
     }
     
     var binaryData: Data {
@@ -63,14 +40,4 @@ class ProfileModel: NSObject, NSCoding {
             return NSKeyedArchiver.archivedData(withRootObject: self)
         }
     }
-    
-    func createCopyWithChange(name: String? = nil, about: String? = nil, image: UIImage? = nil) -> ProfileModel {
-        
-        let copyName = name ?? self.nameValue
-        let copyAbout = about ?? self.aboutValue
-        let copyImage = image ?? self.profileImage
-        
-        return ProfileModel.init(name: copyName, about: copyAbout, image: copyImage, color: .black)
-    }
-    
 }
