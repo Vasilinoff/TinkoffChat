@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //MARK: скрывает вью профиля
-    @IBAction func dismissProfile(_ sender: UIButton) {
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    var data = Profile(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
+    
+    var data = ProfileModel(name: "names", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: UIColor.black)
     let profileGCDDataManager = ProfileDataManager(metod: .GCD)
     let profileOperationDataManager = ProfileDataManager(metod: .Operation)
 
@@ -39,6 +41,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         if !(userNameTextField.text == "name") {
             userNameTextField.textColor = UIColor.black
         }
+        
         //-----Для того чтобы проверить load с помощью GCD
         //-----Нужно изменить operationDataManager на GCDDataManager, оставив такой же метод
         
@@ -115,34 +118,37 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     @IBAction func operationSaveButton(_ sender: UIButton) {
         setButtonsDisable()
         let newProfileData = setValues()
+        
+        let profile = CoreDataStack.insertProfile(in: CoreDataStack.sharedCoreDataStack.saveContext!)
+        CoreDataStack.sharedCoreDataStack.performSave(context: CoreDataStack.sharedCoreDataStack.saveContext!, completionHandler: nil)
             
-        profileOperationDataManager.save(profileData: newProfileData) { (error) in
-                
-            if error == nil {
-                
-                DispatchQueue.main.async {
-                    let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
-                    let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
-                        self.operationSaveButton(self.operationButton)
-                    }
-                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertSaveController.addAction(againAction)
-                    alertSaveController.addAction(okAction)
-                    
-                    self.present(alertSaveController, animated: true, completion: nil)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertSaveController.addAction(okAction)
-                    self.present(alertSaveController, animated: true, completion: nil)
-                }
-            }
-            DispatchQueue.main.async {
-                self.loadingIndicator.stopAnimating()
-            }
-        }
+//        profileOperationDataManager.save(profileData: newProfileData) { (error) in
+//                
+//            if error == nil {
+//                
+//                DispatchQueue.main.async {
+//                    let alertSaveController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить файл", preferredStyle: .alert)
+//                    let againAction = UIAlertAction(title: "Повторить", style: .default) { _ in
+//                        self.operationSaveButton(self.operationButton)
+//                    }
+//                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//                    alertSaveController.addAction(againAction)
+//                    alertSaveController.addAction(okAction)
+//                    
+//                    self.present(alertSaveController, animated: true, completion: nil)
+//                }
+//            } else {
+//                DispatchQueue.main.async {
+//                    let alertSaveController = UIAlertController(title: "Файл сохранен", message: "Успех!", preferredStyle: .alert)
+//                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//                    alertSaveController.addAction(okAction)
+//                    self.present(alertSaveController, animated: true, completion: nil)
+//                }
+//            }
+//            DispatchQueue.main.async {
+//                self.loadingIndicator.stopAnimating()
+//            }
+//        }
         
     }
     //MARK: меняем цвет текста и активируем кнопки сохранения
@@ -172,18 +178,18 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     }
     
     //MARK: заполняем дату значениями
-    func setValues() -> Profile {
+    func setValues() -> ProfileModel {
         let name = userNameTextField.text
         let about = aboutTextView.text
         let profileImage = userImageView.image
         let color = textColorLabel.textColor
         
         if let nameValue = name, let aboutValue = about, let imageVale = profileImage, let colorValue = color {
-            let newProfileData = Profile(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
+            let newProfileData = ProfileModel(name: nameValue, about: aboutValue, image: imageVale, color: colorValue)
             return newProfileData
             
         } else {
-            let newProfileData = Profile(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: .black)
+            let newProfileData = ProfileModel(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"), color: .black)
             return newProfileData
         }
     }

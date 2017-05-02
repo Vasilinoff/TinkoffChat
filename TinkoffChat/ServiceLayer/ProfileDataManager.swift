@@ -20,7 +20,7 @@ class ProfileDataManager {
         self.metod = metod
     }
     
-    func loadProfileData(handler: @escaping (Profile?, DataManagerError?) -> () ) {
+    func loadProfileData(handler: @escaping (ProfileModel?, DataManagerError?) -> () ) {
         let dataManager: DataManager = (metod == .GCD ) ? GCDDataManager.init(fileName: "ProfileData") : OperationDataManager.init()
         
         dataManager.loadData(fromFile: "ProfileData") { (data, error) in
@@ -29,7 +29,7 @@ class ProfileDataManager {
                 return
             }
             
-            guard let profileData = Profile.create(fromData: data) else {
+            guard let profileData = ProfileModel.create(fromData: data) else {
                 handler(nil, .loadError)
                 return
             }
@@ -38,7 +38,7 @@ class ProfileDataManager {
         }
     }
     
-    func save(profileData: Profile, handler: @escaping (DataManagerError?) -> () ) {
+    func save(profileData: ProfileModel, handler: @escaping (DataManagerError?) -> () ) {
         let dataManager: DataManager = (metod == .GCD ) ? GCDDataManager.init(fileName: "ProfileData") : OperationDataManager.init()
         
         dataManager.save(data: profileData.binaryData, toFile: "ProfileData") { (error) in
