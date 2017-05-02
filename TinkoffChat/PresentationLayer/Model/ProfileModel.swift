@@ -70,7 +70,7 @@ class ProfileModel: NSObject, NSCoding {
         let copyAbout = about ?? self.aboutValue
         let copyImage = image ?? self.profileImage
         
-        return ProfileModel.init(name: copyName, about: copyAbout, image: copyImage, color: .b)
+        return ProfileModel.init(name: copyName, about: copyAbout, image: copyImage, color: .black)
     }
     
 }
