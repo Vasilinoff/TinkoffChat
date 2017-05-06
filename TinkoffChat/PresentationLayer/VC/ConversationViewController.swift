@@ -89,6 +89,7 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     @IBAction func sendMessageAction(_ sender: UIButton) {
         contactManager.send(message: messageTextField.text!)
         messageTextField.text = ""
+        sendMessageButton.isEnabled = false
         DispatchQueue.main.async {
             self.messagesTableView.reloadData()
         }

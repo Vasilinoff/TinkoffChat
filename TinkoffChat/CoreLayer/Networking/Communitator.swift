@@ -76,6 +76,7 @@ class MultipeerCommunicator: NSObject, Communicator {
         self.serviceAdvertiser.stopAdvertisingPeer()
         self.serviceBrowser.stopBrowsingForPeers()
     }
+    
 
 }
 
@@ -98,8 +99,11 @@ extension MultipeerCommunicator : MCNearbyServiceAdvertiserDelegate {
             invitationHandler(false, nil)
             return
         }
-        
+        print("sessions.count A", sessions.count)
+
         invitationHandler(true, sessions[peerID.displayName])
+        
+        print("sessions.count A2", sessions.count)
     }
 }
 
@@ -111,7 +115,7 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         print("foundPeer: \(peerID)")
         print("invitePeer: \(peerID)")
-        print("sessions.count", sessions.count)
+        print("sessions.count B", sessions.count)
         
         if sessions[peerID.displayName] == nil {
         
@@ -127,6 +131,8 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate {
         }
         
         browser.invitePeer(peerID, to: sessions[peerID.displayName]!, withContext: nil, timeout: 10)
+        print("sessions.count B2", sessions.count)
+
         
     }
 
@@ -205,19 +211,8 @@ extension MultipeerCommunicator {
         }
         return message
     }
+    
     fileprivate func generateMessageId() -> String {
         return ("\(arc4random_uniform(UINT32_MAX)) + \(Date.timeIntervalSinceReferenceDate) + \(arc4random_uniform(UINT32_MAX))".data(using: .utf8)?.base64EncodedString())!
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-

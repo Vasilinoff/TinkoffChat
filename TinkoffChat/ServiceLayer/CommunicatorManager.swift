@@ -66,7 +66,7 @@ extension CommunicatorManager: ContactManager {
         let contact = contacts.filter({ $0.name == recipientUsername }).first
         contact?.messages.append(Message(text: message, received: false, date: Date()))
         
-        contacts.append(contact!)
+        //contacts.append(contact!)
 
     }
     
