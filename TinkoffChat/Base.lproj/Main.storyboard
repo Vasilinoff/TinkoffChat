@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EF1-cG-GtL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rX6-cP-70k">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -249,7 +249,7 @@
         <scene sceneID="VwC-cv-UBn">
             <objects>
                 <collectionViewController id="Ghw-Ic-rY4" customClass="ProfileImageViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="IZV-km-Nxf">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="IZV-km-Nxf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -302,8 +302,12 @@
                             </connections>
                         </textField>
                     </navigationItem>
+                    <connections>
+                        <segue destination="O4d-qz-Jyy" kind="unwind" identifier="unwindSegueToVC1" unwindAction="unwindToVC1WithSegue:" id="EgJ-WU-d6n"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4mj-Nf-4Xa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="O4d-qz-Jyy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1944.8" y="218.1409295352324"/>
         </scene>
@@ -424,6 +428,7 @@
                         <outlet property="saveButton" destination="JI3-mO-Rno" id="npB-gn-SKD"/>
                         <outlet property="userImageView" destination="4cx-0O-oWb" id="gZG-aX-ARB"/>
                         <outlet property="userNameTextField" destination="Hie-rx-Zsm" id="sH9-WS-Efq"/>
+                        <segue destination="EF1-cG-GtL" kind="presentation" identifier="flickr" id="Oq0-Zk-21o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -6,6 +6,7 @@ let apiKey = "50ec53feb856f7348251607f36a75ebb"
 class Flickr {
   
   let processingQueue = OperationQueue()
+  var flickrPhotos = [FlickrPhoto]()
   
   func searchFlickrForTerm(_ searchTerm: String, completion : @escaping (_ results: FlickrSearchResults?, _ error : NSError?) -> Void){
     
@@ -85,8 +86,6 @@ class Flickr {
           return
         }
         
-        var flickrPhotos = [FlickrPhoto]()
-        
         for photoObject in photosReceived {
           guard let photoID = photoObject["id"] as? String,
             let farm = photoObject["farm"] as? Int ,
@@ -95,20 +94,13 @@ class Flickr {
               break
           }
           let flickrPhoto = FlickrPhoto(photoID: photoID, farm: farm, server: server, secret: secret)
-          
-          guard let url = flickrPhoto.flickrImageURL(),
-            let imageData = try? Data(contentsOf: url as URL) else {
-              break
-          }
-          
-          if let image = UIImage(data: imageData) {
-            flickrPhoto.thumbnail = image
-            flickrPhotos.append(flickrPhoto)
-          }
+                  
+          self.flickrPhotos.append(flickrPhoto)
         }
-              
+        
+            
         OperationQueue.main.addOperation({
-          completion(FlickrSearchResults(searchTerm: searchTerm, searchResults: flickrPhotos), nil)
+          completion(FlickrSearchResults(searchTerm: searchTerm, searchResults: self.flickrPhotos), nil)
         })
         
       } catch _ {
@@ -126,7 +118,7 @@ class Flickr {
       return nil
     }
     
-    let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(escapedTerm)&per_page=20&format=json&nojsoncallback=1"
+    let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(escapedTerm)&per_page=200&format=json&nojsoncallback=1"
     
     guard let url = URL(string:URLString) else {
       return nil

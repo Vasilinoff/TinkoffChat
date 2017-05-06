@@ -70,6 +70,13 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     @IBAction func usernameDidChanded(_ sender: UIButton) {
         setButtonsAble()
     }
+    
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
+        let view = segue.source as! ProfileImageViewController
+        userImageView.image = view.pickedImage
+        self.saveButton.isEnabled = true
+        self.saveButton.backgroundColor = UIColor.red
+    }
 
     //MARK: Кнопка сохранения Operation
     @IBAction func saveButton(_ sender: UIButton) {
@@ -168,7 +175,12 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
             
         }
         
+        let flickrAction = UIAlertAction(title: "Найти в Интернете", style: .default) { (_) in
+            self.performSegue(withIdentifier: "flickr", sender: self)
+        }
+        
         alertController.addAction(cameraAction)
+        alertController.addAction(flickrAction)
         alertController.addAction(photosLibraryAction)
         alertController.addAction(savedPhotosAction)
         alertController.addAction(cancelAction)
