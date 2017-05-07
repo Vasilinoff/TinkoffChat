@@ -22,40 +22,7 @@ class FlickrPhoto : Equatable {
     }
     return nil
   }
-  
-  func loadLargeImage(_ completion: @escaping (_ flickrPhoto: FlickrPhoto, _ error: Error?) -> Void) {
-    guard let loadURL = flickrImageURL("b") else {
-      DispatchQueue.main.async {
-        completion(self, nil)
-      }
-      return
-    }
     
-    let loadRequest = URLRequest(url:loadURL)
-    
-    URLSession.shared.dataTask(with: loadRequest, completionHandler: { (data, response, error) in
-      if let error = error {
-        DispatchQueue.main.async {
-          completion(self, error as Error?)
-        }
-        return
-      }
-      
-      guard let data = data else {
-        DispatchQueue.main.async {
-          completion(self, nil)
-        }
-        return
-      }
-      
-      let returnedImage = UIImage(data: data)
-      self.largeImage = returnedImage
-      DispatchQueue.main.async {
-        completion(self, nil)
-      }
-    }).resume()
-  }
-  
   func sizeToFillWidthOfSize(_ size:CGSize) -> CGSize {
     
     guard let thumbnail = thumbnail else {
