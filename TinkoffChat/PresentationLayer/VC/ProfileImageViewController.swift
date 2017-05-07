@@ -21,8 +21,10 @@ class ProfileImageViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let flickrSearch = FlickrSearchService(requestSender: requestSender)
         flickrSearch.flickrSearch()
+        
 
     }
 
