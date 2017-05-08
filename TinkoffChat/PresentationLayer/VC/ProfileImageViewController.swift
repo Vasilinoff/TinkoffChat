@@ -14,7 +14,7 @@ class ProfileImageViewController: UICollectionViewController {
     fileprivate let reuseIdentifier = "imageCell"
     fileprivate let itemsPerRow: CGFloat = 3
     fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
-    fileprivate var searches = [FlickrSearchResults]()
+    fileprivate var searches = [FlickrPhoto]()
     fileprivate let requestSender = RequestSender()
     
     var pickedImage: UIImage?
@@ -23,20 +23,27 @@ class ProfileImageViewController: UICollectionViewController {
         super.viewDidLoad()
         
         let flickrSearch = FlickrSearchService(requestSender: requestSender)
-        flickrSearch.flickrSearch()
+        flickrSearch.flickrSearch { flickrPhoto, error in
+            self.searches = flickrPhoto!
+            
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
+            
+        }
         
 
     }
 
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return searches.count
+        return 1
     }
     
     //2
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
-        return searches[section].searchResults.count
+        return searches.count
     }
     
     //3
@@ -95,7 +102,7 @@ class ProfileImageViewController: UICollectionViewController {
 
 private extension ProfileImageViewController {
     func photoForIndexPath(indexPath: IndexPath) -> FlickrPhoto {
-        return searches[(indexPath as IndexPath).section].searchResults[(indexPath as IndexPath).row]
+        return searches[indexPath.row]
     }
 }
 

@@ -26,7 +26,7 @@ class CoreDataStack {
     
     fileprivate init() {}
     
-    private let managedObjectModelName = "ProfileDataModel"
+    private let managedObjectModelName = "DataModel"
     private var _managedObjectModel: NSManagedObjectModel?
     private var managedObjectModel: NSManagedObjectModel? {
         get {
