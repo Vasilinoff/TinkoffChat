@@ -10,7 +10,7 @@ import Foundation
 
 class FlickrRequest: Requestable {
     static let apiKey = "50ec53feb856f7348251607f36a75ebb"
-    let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=random&per_page=20&format=json&nojsoncallback=1"
+    let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=random&per_page=200&format=json&nojsoncallback=1"
     
     
     var urlRequest: URLRequest? {
