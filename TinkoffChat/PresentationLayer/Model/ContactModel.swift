@@ -16,41 +16,41 @@ protocol ConversationCellConfiguration: class {
     var hasUnreadedMessages: Bool { get }
 }
 
-class Contact: ConversationCellConfiguration {
-    let name: String
-    
-    var messages: [Message]
-    var online: Bool
-    
-    private var lastMessage: Message? {
-        get {
-            return messages.last
-        }
-    }
-    
-    var lastMessageText: String? {
-        get {
-            return lastMessage?.text
-        }
-    }
-    
-    var lastMessageDate: Date? {
-        get {
-            return lastMessage?.date
-        }
-    }
-    var hasUnreadedMessages: Bool {
-        get {
-            return true
-        }
-    }
-    
-    init(name: String, online: Bool, messages: [Message]) {
-        self.name = name
-        self.online = online
-        self.messages = messages
-        
-    }
-}
+//class Contact: ConversationCellConfiguration {
+//    let name: String
+//    
+//    var messages: [MessageModel]
+//    var online: Bool
+//    
+//    private var lastMessage: MessageModel? {
+//        get {
+//            return messages.last
+//        }
+//    }
+//    
+//    var lastMessageText: String? {
+//        get {
+//            return lastMessage?.text
+//        }
+//    }
+//    
+//    var lastMessageDate: Date? {
+//        get {
+//            return lastMessage?.date
+//        }
+//    }
+//    var hasUnreadedMessages: Bool {
+//        get {
+//            return true
+//        }
+//    }
+//    
+//    init(name: String, online: Bool, messages: [MessageModel]) {
+//        self.name = name
+//        self.online = online
+//        self.messages = messages
+//        
+//    }
+//}
 
 

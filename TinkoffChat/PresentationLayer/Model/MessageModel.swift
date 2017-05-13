@@ -13,7 +13,7 @@ protocol MessageCellConfiguration: class {
     var date: Date { get }
 }
 
-class Message: MessageCellConfiguration {
+class MessageModel: MessageCellConfiguration {
     let text: String
     let received: Bool
     let date: Date

@@ -18,24 +18,15 @@ protocol ContactManagerDelegate: class {
 }
 
 protocol ContactManager {
-    func send(message: String)
-    var activeContact: ConversationCellConfiguration? { get }
-    var activeContactMessages: [MessageCellConfiguration]? { get }
+    func send(message: Message)
 }
 
 class CommunicatorManager {
     weak var contactsDelegate: ContactsDelegate?
     weak var activeContactDelegate: ContactManagerDelegate?
+    var dataService = DataService()
     
     var communicator: Communicator
-    
-    fileprivate var contacts: [Contact] = []
-    
-    var transportContacts: [ConversationCellConfiguration] {
-        get {
-            return contacts
-        }
-    }
     
     var activeContactName: String?
     
@@ -46,60 +37,41 @@ class CommunicatorManager {
 }
 
 extension CommunicatorManager: ContactManager {
-    var activeContact: ConversationCellConfiguration? {
-        get {
-            return contacts.filter({ $0.name == activeContactName }).first
-        }
-    }
-    var activeContactMessages: [MessageCellConfiguration]? {
-        get {
-            return contacts.filter({ $0.name == activeContactName }).first?.messages
-        }
-    }
     
-    func send(message: String) {
-        guard let recipientUsername = activeContact?.name else {
+    
+    func send(message: Message) {
+        guard let recipientUsername = message.conversation?.conversationId else {
             fatalError()
         }
-        communicator.sendMessage(string: message, to: recipientUsername, completionHandler: nil)
-        
-        let contact = contacts.filter({ $0.name == recipientUsername }).first
-        contact?.messages.append(Message(text: message, received: false, date: Date()))
-        
-        //contacts.append(contact!)
-
+        communicator.sendMessage(string: message.text, to: recipientUsername, completionHandler: nil)
     }
-    
 }
 
 extension CommunicatorManager: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
-        var contact: Contact! = contacts.filter({ $0.name == userID}).first
-        if contact == nil {
-            contact = Contact(name: userID, online: true, messages: [])
-            contacts.append(contact)
-        }
-        
-        contact.online = true
+
+        let conversation = dataService.findOrIntesrConversation(userId: userID)
+        let user = dataService.findOrInsertUser(userId: userID)
+        conversation?.addToParticipants(user)
         
         contactsDelegate?.contactListUpdated()
         
-        if userID == activeContact?.name {
+        if userID == activeContactName {
             activeContactDelegate?.becomeOnline()
         }
     }
 
     func didLostUser(userID: String) {
-        let lostContacts = contacts.filter({ $0.name == userID  })
-        
-        for contact in lostContacts {
-            contact.online = false
-        }
-        contactsDelegate?.contactListUpdated()
-        
-        if userID == activeContact?.name {
-            activeContactDelegate?.becomeOffline()
-        }
+//        let lostConversation = conversations.filter({ $0.name == userID  })
+//        
+//        for conversation in lostConversation {
+//            conversation.participants
+//        }
+//        contactsDelegate?.contactListUpdated()
+//        
+//        if userID == activeContact?.name {
+//            activeContactDelegate?.becomeOffline()
+//        }
     }
 
     func failedToStartBrowsingForUsers(error: Error) {
@@ -111,12 +83,11 @@ extension CommunicatorManager: CommunicatorDelegate {
     }
 
     func didRecievedMessage(text: String, fromUser: String, toUser: String) {
-        let contact = contacts.filter({ $0.name == fromUser }).first
-        contact?.messages.append(Message(text: text, received: true, date: Date()))
+        
         
         contactsDelegate?.contactListUpdated()
         
-        if fromUser == activeContact?.name {
+        if fromUser == activeContactName {
             activeContactDelegate?.didRecieve(message: text)
         }
     }

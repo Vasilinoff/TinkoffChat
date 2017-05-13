@@ -29,38 +29,27 @@ class ProfileImageViewController: UICollectionViewController {
             DispatchQueue.main.async {
                 self.collectionView?.reloadData()
             }
-            
         }
-        
-
     }
-
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    //2
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
         return searches.count
     }
     
-    //3
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //1
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! FlickrPhotoCell
-        //2
         let flickrPhoto = photoForIndexPath(indexPath: indexPath)
         
         cell.backgroundColor = UIColor.white
         
         cell.imageView.image = flickrPhoto.thumbnail
-        
-        
-        
-        //3
         
         return cell
     }
@@ -105,43 +94,6 @@ private extension ProfileImageViewController {
         return searches[indexPath.row]
     }
 }
-
-//extension ProfileImageViewController : UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        // 1
-//        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-//        textField.addSubview(activityIndicator)
-//        activityIndicator.frame = textField.bounds
-//        activityIndicator.startAnimating()
-//        
-//        flickr.searchFlickrForTerm(textField.text!) {
-//            results, error in
-//            
-//            
-//            activityIndicator.removeFromSuperview()
-//            
-//            
-//            if let error = error {
-//                // 2
-//                print("Error searching : \(error)")
-//                return
-//            }
-//            
-//            if let results = results {
-//                // 3
-//                print("Found \(results.searchResults.count) matching \(results.searchTerm)")
-//                self.searches.insert(results, at: 0)
-//                
-//                // 4
-//                self.collectionView?.reloadData()
-//            }
-//        }
-//        
-//        textField.text = nil
-//        textField.resignFirstResponder()
-//        return true
-//    }
-//}
 
 extension ProfileImageViewController : UICollectionViewDelegateFlowLayout {
     //1

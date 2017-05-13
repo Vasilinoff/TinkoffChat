@@ -30,7 +30,7 @@ class ProfileSaveService {
             if let profile = findOrInsertProfile(in: context) {
                 profile.name = profileModel.nameValue
                 profile.about = profileModel.aboutValue
-                profile.image = UIImageJPEGRepresentation(profileModel.profileImage, 1.0) as Data?
+                profile.image = UIImageJPEGRepresentation(profileModel.profileImage, 1.0) as  Data?
             }
             
             performSave(context: context, completionHandler: completion)

@@ -18,11 +18,12 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     
     var contactManager: ContactManager!
     
-    var name: String? {
+    var conversationId: String? {
         get {
             return contactManager.activeContact?.name
         }
     }
+    
     
     var messages: [MessageCellConfiguration] {
         get {
@@ -45,7 +46,7 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillHide(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
-        self.title = name
+        self.title = conversationId
     }
     
     func keyboardWillShow(_ notification: Notification) {
