@@ -10,57 +10,9 @@ import Foundation
 import CoreData
 import UIKit
 
-
-
-
-
 class DataService {
     fileprivate let coreDataStack = CoreDataStack.sharedCoreDataStack
     
-//    func saveProfileData(_ profileModel: ProfileModel, completion: @escaping (Bool, Error?) -> Void) {
-//        if let context = coreDataStack.saveContext {
-//            if let appUser = findOrCreateAppUser() {
-//                let profile = Profile(context: context)
-//                profile.name = profileModel.nameValue
-//                profile.about = profileModel.aboutValue
-//                profile.image = UIImageJPEGRepresentation(profileModel.profileImage, 1.0) as  Data?
-//                appUser.profile = profile
-//                
-//            }
-//            
-//            performSave(context: context, completionHandler: completion)
-//        }
-//    }
-//    
-//    func loadProfileData() -> ProfileModel {
-//        if let context = coreDataStack.mainContext {
-//            let request = AppUser.fetchRequestAppUser(model: (context.persistentStoreCoordinator?.managedObjectModel)!)!
-//            
-//            if let appUser = findOrCreate(in: context, request: request, entityName: "AppUser") {
-//                let currentUser = User(context: context)
-//                currentUser.userId = UIDevice.current.name
-//                appUser.currentUser = currentUser
-//                
-//                
-//            }
-//        }
-//    }
-    
-//    func loadAppUser(completion: @escaping (AppUser?, Error?) -> Void) {
-//        if let context = coreDataStack.mainContext {
-//            let request = AppUser.fetchRequestAppUser(model: (context.persistentStoreCoordinator?.managedObjectModel)!)!
-//
-//            if let appUser = findOrCreate(in: context, request: request, entityName: "AppUser") {
-//                let currentUser = User(context: context)
-//                currentUser.userId = UIDevice.current.name
-//                appUser.currentUser = currentUser
-//                completion(appUser, nil)
-//                return
-//            }
-//        }
-//        completion(nil, nil)
-//    }
-//    
     
     fileprivate func insert<T>(in context: NSManagedObjectContext, entityName: String) -> T? {
         return NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as? T
@@ -102,7 +54,7 @@ class DataService {
     
     func saveFoundedConversation(conversationId: String) {
         if let context = coreDataStack.saveContext {
-            var conversation = findConversation(conversationId: conversationId)
+            let conversation = findConversation(conversationId: conversationId)
             
             let user = findUser(userId: conversationId)
             conversation?.addToParticipants(user)
@@ -139,8 +91,13 @@ class DataService {
 
     }
     
+    fileprivate func generateMessageId() -> String {
+        return ("\(arc4random_uniform(UINT32_MAX)) + \(Date.timeIntervalSinceReferenceDate) + \(arc4random_uniform(UINT32_MAX))".data(using: .utf8)?.base64EncodedString())!
+    }
+    
     fileprivate func createMessage(with text: String, context: NSManagedObjectContext) -> Message {
         let message = Message(context: context)
+        message.messageId = generateMessageId()
         message.date = Date()
         message.text = text
         message.received = false
@@ -158,7 +115,6 @@ class DataService {
         performSave(context: context!, completionHandler: { _,_ in  })
         return user!
     }
-    
     
     fileprivate func performSave(context: NSManagedObjectContext, completionHandler: @escaping (Bool, Error?) -> Void) {
         if context.hasChanges {
@@ -185,5 +141,4 @@ class DataService {
             completionHandler(true, nil)
         }
     }
-    
 }

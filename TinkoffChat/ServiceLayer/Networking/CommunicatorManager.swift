@@ -56,8 +56,12 @@ extension CommunicatorManager: ContactManager {
 
 extension CommunicatorManager: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
-
         dataService.saveFoundedConversation(conversationId: userID)
+        
+        let conversation = dataService.findConversation(conversationId: userID)
+        conversation?.isOnline = true
+        let user = dataService.findUser(userId: userID)
+        user.isOnline = true
         
         contactsDelegate?.contactListUpdated()
         
@@ -67,6 +71,11 @@ extension CommunicatorManager: CommunicatorDelegate {
     }
 
     func didLostUser(userID: String) {
+        let conversation = dataService.findConversation(conversationId: userID)
+        conversation?.isOnline = false
+        
+        let user = dataService.findUser(userId: userID)
+        user.isOnline = false
 //        let lostConversation = conversations.filter({ $0.name == userID  })
 //        
 //        for conversation in lostConversation {

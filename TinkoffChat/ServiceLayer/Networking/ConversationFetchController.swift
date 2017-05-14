@@ -6,7 +6,6 @@ class ConversationFetchController : NSObject, NSFetchedResultsControllerDelegate
     
     fileprivate let receivedCellId = "received"
     fileprivate let sendedCellId = "sended"
-    fileprivate let headerTitles = ["Online", "History"]
     
     fileprivate let tableView: UITableView
     fileprivate let fetchResultsController: NSFetchedResultsController<Message>
@@ -16,7 +15,7 @@ class ConversationFetchController : NSObject, NSFetchedResultsControllerDelegate
         let context = CoreDataStack.sharedCoreDataStack.mainContext!
         
         let fetchRequest: NSFetchRequest<Message> = Message.fetchRequestMessage(context: context, conversationId: identifier)!
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key:#keyPath(Message.date), ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key:#keyPath(Message.date), ascending: true)]
         
         
         self.fetchResultsController = NSFetchedResultsController<Message>(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)

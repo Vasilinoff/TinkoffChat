@@ -19,6 +19,7 @@ extension Conversation {
     @NSManaged public var conversationId: String?
     @NSManaged public var messages: NSSet?
     @NSManaged public var participants: NSSet?
+    @NSManaged public var isOnline: Bool
 
 }
 

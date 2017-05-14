@@ -103,6 +103,10 @@ extension ConversationListFetchController: UITableViewDataSource, UITableViewDel
         return sections[section].numberOfObjects
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return numberOfRows(inSection: section) == 0 ? nil : Optional<String>(headerTitles[section])
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:conversationCell, for:indexPath) as! ContactTableViewCell
         let conversation = fetchResultsController.object(at: indexPath)
@@ -112,6 +116,12 @@ extension ConversationListFetchController: UITableViewDataSource, UITableViewDel
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         cell.nameLabel.text = conversation.conversationId
+        
+        if conversation.isOnline == true {
+            cell.backgroundColor = UIColor(red: 243/255, green: 232/255, blue: 234/255, alpha: 1.0)
+        } else {
+            cell.backgroundColor = UIColor.white
+        }
         
         if conversation.lastMessageText != nil {
             cell.dateLabel?.text =  dateFormatter.string(from: (conversation.lastMessageDate)!)
@@ -125,7 +135,4 @@ extension ConversationListFetchController: UITableViewDataSource, UITableViewDel
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return numberOfRows(inSection: section) == 0 ? nil : Optional<String>(headerTitles[section])
-    }
 }
