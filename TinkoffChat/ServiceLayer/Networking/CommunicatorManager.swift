@@ -30,7 +30,7 @@ class CommunicatorManager {
     var communicator: Communicator
     
     var activeContactName: String?
-    var activeConversation: Conversation?
+    //var activeConversation: Conversation?
     
     init() {
         self.communicator = MultipeerCommunicator()
@@ -44,7 +44,8 @@ extension CommunicatorManager: ContactManager {
     func send(message: String, to user: String) {
         communicator.sendMessage(string: message, to: user) { success, error in
             if success {
-                self.dataService.saveSendedMessage(conversation: self.activeConversation!, to: user, text: message)
+                let conversation = self.dataService.findConversation(conversationId: self.activeContactName!)
+                self.dataService.saveSendedMessage(conversation: conversation!, to: user, text: message)
             } else {
                 print("\(String(describing: error))")
             }

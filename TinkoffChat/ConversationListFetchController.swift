@@ -107,7 +107,7 @@ extension ConversationListFetchController: UITableViewDataSource, UITableViewDel
         let cell = tableView.dequeueReusableCell(withIdentifier:conversationCell, for:indexPath) as! ContactTableViewCell
         let conversation = fetchResultsController.object(at: indexPath)
         
-        cell.conversation = conversation
+        //cell.conversation = conversation
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"

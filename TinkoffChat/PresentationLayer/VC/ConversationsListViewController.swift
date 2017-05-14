@@ -87,7 +87,7 @@ class ConversationsListViewController: UIViewController {
                 let name = cell.nameLabel.text
                 
                 serviceManager.activeContactName = name
-                serviceManager.activeConversation = cell.conversation
+                //serviceManager.activeConversation = cell.conversation
                 serviceManager.activeContactDelegate = controller
             }
         }

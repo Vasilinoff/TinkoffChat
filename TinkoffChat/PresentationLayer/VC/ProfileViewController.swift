@@ -14,8 +14,8 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    //fileprivate let profileSaveService = ProfileSaveService()
-    fileprivate let dataService = DataService()
+    fileprivate let profileSaveService = ProfileSaveService()
+    //fileprivate let dataService = DataService()
     
     var data = ProfileModel(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"))
     
@@ -39,33 +39,21 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
             userNameTextField.textColor = UIColor.black
         }
         
-//        profileSaveService.loadProfileData { (profile, error) in
-//            guard let profileData = profile else {
-//                print("error")
-//                return
-//            }
-//            
-//            self.data = profileData
-//            DispatchQueue.main.async {
-//                self.aboutTextView.text = self.data.aboutValue
-//                self.userNameTextField.text = self.data.nameValue
-//                self.userImageView.image = self.data.profileImage
-//            }
-//        }
-        dataService.loadAppUser { (appUser, error) in
-            guard let profileData = appUser?.profile else {
+        profileSaveService.loadProfileData { (profile, error) in
+            guard let profileData = profile else {
                 print("error")
                 return
             }
             
-            let profileModel = ProfileModel(name: profileData.name, about: profileData.about, image: UIImage(data: profileData.image! ))
-            self.data = profileModel
+            self.data = profileData
             DispatchQueue.main.async {
                 self.aboutTextView.text = self.data.aboutValue
                 self.userNameTextField.text = self.data.nameValue
                 self.userImageView.image = self.data.profileImage
             }
         }
+        
+        
         
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
@@ -99,7 +87,7 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         setButtonsDisable()
         let newProfileData = setValues()
         
-        dataService.saveProfileData(newProfileData) { success, error in
+        profileSaveService.saveProfileData(newProfileData) { success, error in
             if error != nil {
                 
                 DispatchQueue.main.async {

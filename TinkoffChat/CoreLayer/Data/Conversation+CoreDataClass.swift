@@ -17,7 +17,7 @@ public class Conversation: NSManagedObject {
 
 extension Conversation: ConversationCellConfiguration {
     fileprivate var lastMessage: Message? {
-        return (self.messages?.allObjects as! [Message]).sorted(by: { $0.date > $1.date }).last
+        return (self.messages?.allObjects as! [Message]).sorted(by: { $0.date < $1.date }).last
     }
     var name: String {
         return self.participants!.reduce("", { (result, element) -> String in
