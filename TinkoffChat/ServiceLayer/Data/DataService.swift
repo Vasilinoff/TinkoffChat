@@ -10,63 +10,16 @@ import Foundation
 import CoreData
 import UIKit
 
-extension AppUser {
-    static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
-        let templateName = "AppUser"
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
-            assert(false, "No template with name \(templateName)")
-            return nil
-        }
-        
-        return fetchRequest
-    }
-}
 
-extension Conversation {
-    static func fetchRequestConversation(model: NSManagedObjectModel) -> NSFetchRequest<Conversation>? {
-        let templateName = "Conversation"
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<Conversation> else {
-            assert(false, "no template with name \(templateName)")
-            
-            return nil
-        }
-        
-        return fetchRequest
-    }
-}
 
-extension User {
-    static func fetchRequestUser(model: NSManagedObjectModel, identifier: String) -> NSFetchRequest<User>? {
-        let templateName = "User"
-        guard let fetchRequest = model.fetchRequestFromTemplate(withName: templateName, substitutionVariables: ["identifier" : identifier]) as? NSFetchRequest<User> else {
-            assert(false, "No template with name \(templateName)")
-            
-            return nil
-        }
-        
-        return fetchRequest
-    }
-}
 
-extension Message {
-    static func fetchRequest(model: NSManagedObjectModel, conversationIdentifier: String) -> NSFetchRequest<Message>? {
-        let templateName = "Message"
-        guard let fetchRequest = model.fetchRequestFromTemplate(withName: templateName, substitutionVariables: ["indentifier" : conversationIdentifier]) as? NSFetchRequest<Message> else {
-            assert(false, "No template with name \(templateName)")
-            
-            return nil
-        }
-        
-        return fetchRequest
-    }
-}
 
 class DataService {
     fileprivate let coreDataStack = CoreDataStack.sharedCoreDataStack
     
     func saveProfileData(_ profileModel: ProfileModel, completion: @escaping (Bool, Error?) -> Void) {
         if let context = coreDataStack.saveContext {
-            if let appUser = findOrInsertAppUser(in: context) {
+            if let appUser = findAppUser(in: context) {
                 let profile = Profile(context: context)
                 profile.name = profileModel.nameValue
                 profile.about = profileModel.aboutValue
@@ -80,10 +33,10 @@ class DataService {
     }
     
     
-    fileprivate func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
+    fileprivate func findAppUser(in context: NSManagedObjectContext) -> AppUser? {
         if let context = coreDataStack.saveContext {
             let request = AppUser.fetchRequestAppUser(model: (context.persistentStoreCoordinator?.managedObjectModel)!)!
-            let appUser = findOrInsert(in: context, request: request, entityName: "AppUser")
+            let appUser = find(in: context, request: request, entityName: "AppUser")
             
             return appUser
         }
@@ -95,7 +48,7 @@ class DataService {
         if let context = coreDataStack.mainContext {
             let request = AppUser.fetchRequestAppUser(model: (context.persistentStoreCoordinator?.managedObjectModel)!)!
 
-            if let appUser = findOrInsert(in: context, request: request, entityName: "AppUser") {
+            if let appUser = find(in: context, request: request, entityName: "AppUser") {
                 let currentUser = User(context: context)
                 currentUser.userId = UIDevice.current.name
                 appUser.currentUser = currentUser
@@ -106,17 +59,12 @@ class DataService {
         completion(nil, nil)
     }
     
-//    func loadConversations(completion: @escaping ([Conversation]?) -> Void ) {
-//        loadAppUser { (appUser, error) in
-//            completion(appUser!.currentUser?.conversations?.allObjects as? [Conversation])
-//        }
-//    }
     
     fileprivate func insert<T>(in context: NSManagedObjectContext, entityName: String) -> T? {
         return NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as? T
     }
     
-    fileprivate func findOrInsert<T> (in context: NSManagedObjectContext, request: NSFetchRequest<T>, entityName: String) -> T? {
+    fileprivate func find<T> (in context: NSManagedObjectContext, request: NSFetchRequest<T>, entityName: String) -> T? {
         var value: T?
         
         do {
@@ -136,11 +84,11 @@ class DataService {
         return value
     }
     
-    func findOrIntesrConversation(userId: String) -> Conversation? {
-        if let context = coreDataStack.saveContext {
-            let request = Conversation.fetchRequestConversation(model: (context.persistentStoreCoordinator?.managedObjectModel)!)!
-            let conversation = findOrInsert(in: context, request: request, entityName: "Conversation")
-            conversation?.conversationId = userId
+    func findConversation(conversationId: String) -> Conversation? {
+        if let context = coreDataStack.mainContext {
+            let request = Conversation.fetchRequestConversation(model: (context.persistentStoreCoordinator?.managedObjectModel)!, identifier: conversationId)!
+            let conversation = find(in: context, request: request, entityName: "Conversation")
+            conversation?.conversationId = conversationId
             
             performSave(context: context, completionHandler: { _,_ in  })
             return conversation
@@ -150,22 +98,57 @@ class DataService {
         return nil
     }
     
-    func insertMessage(messageId: String, text: String) -> Message? {
-        if let context = coreDataStack.saveContext {
-            let message: Message = insert(in: context, entityName: "Message")!
-            message.text = text
-            performSave(context: context, completionHandler: { _,_ in })
-            return message
+    func saveFoundedConversation(conversationId: String) {
+        if let context = coreDataStack.mainContext {
+            var conversation = findConversation(conversationId: conversationId)
+            
+            let user = findUser(userId: conversationId)
+            conversation?.addToParticipants(user)
+            
         }
+    }
+
+    
+    func saveSendedMessage(conversation: Conversation, to user: String, text: String) {
+        if let context = coreDataStack.mainContext {
+            let message = createMessage(with: text, context: context)
+            message.text = text
+            message.conversation = conversation
+            message.conversation?.conversationId = user
+            message.read = true
+            message.received = false
+            
+            performSave(context: context, completionHandler: { _,_ in })
+        }
+    }
+    
+    func saveReceivedMessage(conversation: Conversation, conversationId: String, text: String) {
+        if let context = coreDataStack.mainContext {
+            let message = createMessage(with: text, context: context)
+            message.text = text
+            message.conversation = conversation
+            message.conversation?.conversationId = conversationId
+            message.read = false
+            message.received = true
+            
+            performSave(context: context, completionHandler: { _,_ in })
+        }
+
+    }
+    
+    fileprivate func createMessage(with text: String, context: NSManagedObjectContext) -> Message {
+        let message = Message(context: context)
+        message.date = Date()
+        message.text = text
         
-        return nil
+        return message
     }
     
  
-    func findOrInsertUser(userId: String) -> User {
+    func findUser(userId: String) -> User {
         let context = coreDataStack.mainContext
         let request = User.fetchRequestUser(model: (context?.persistentStoreCoordinator?.managedObjectModel)!, identifier: userId)!
-        let user = findOrInsert(in: context!, request: request, entityName: "User")
+        let user = find(in: context!, request: request, entityName: "User")
         user?.userId = userId
         
         performSave(context: context!, completionHandler: { _,_ in  })

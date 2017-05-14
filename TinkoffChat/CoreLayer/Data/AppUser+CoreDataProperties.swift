@@ -22,6 +22,18 @@ extension AppUser {
 
 }
 
+extension AppUser {
+    static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
+        let templateName = "AppUser"
+        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
+            assert(false, "No template with name \(templateName)")
+            return nil
+        }
+        
+        return fetchRequest
+    }
+}
+
 // MARK: Generated accessors for users
 extension AppUser {
 

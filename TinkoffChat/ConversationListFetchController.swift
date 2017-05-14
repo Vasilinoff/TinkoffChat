@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class ConversationListModel : NSObject, NSFetchedResultsControllerDelegate {
+class ConversationListFetchController : NSObject, NSFetchedResultsControllerDelegate {
     
     fileprivate let conversationCell = "conversationCell"
     fileprivate let headerTitles = ["Online", "History"]
@@ -87,7 +87,7 @@ class ConversationListModel : NSObject, NSFetchedResultsControllerDelegate {
     }
 }
 
-extension ConversationListModel: UITableViewDataSource, UITableViewDelegate {
+extension ConversationListFetchController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         guard  let sectionsCount = fetchResultsController.sections?.count else { return 0 }
@@ -106,6 +106,9 @@ extension ConversationListModel: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:conversationCell, for:indexPath) as! ContactTableViewCell
         let conversation = fetchResultsController.object(at: indexPath)
+        
+        cell.conversation = conversation
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         cell.nameLabel.text = conversation.conversationId

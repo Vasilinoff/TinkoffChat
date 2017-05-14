@@ -22,6 +22,20 @@ extension Conversation {
 
 }
 
+extension Conversation {
+    static func fetchRequestConversation(model: NSManagedObjectModel, identifier: String) -> NSFetchRequest<Conversation>? {
+        let templateName = "Conversation"
+        guard let fetchRequest = model.fetchRequestFromTemplate(withName: templateName, substitutionVariables: ["identifier" : identifier]) as? NSFetchRequest<Conversation> else {
+            assert(false, "No template with name \(templateName)")
+            
+            return nil
+        }
+        
+        return fetchRequest
+    }
+    
+}
+
 // MARK: Generated accessors for messages
 extension Conversation {
 

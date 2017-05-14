@@ -18,7 +18,8 @@ protocol ContactManagerDelegate: class {
 }
 
 protocol ContactManager {
-    func send(message: Message)
+    func send(message: String, to user: String)
+    var activeContactName: String? { get }
 }
 
 class CommunicatorManager {
@@ -29,6 +30,7 @@ class CommunicatorManager {
     var communicator: Communicator
     
     var activeContactName: String?
+    var activeConversation: Conversation?
     
     init() {
         self.communicator = MultipeerCommunicator()
@@ -39,20 +41,22 @@ class CommunicatorManager {
 extension CommunicatorManager: ContactManager {
     
     
-    func send(message: Message) {
-        guard let recipientUsername = message.conversation?.conversationId else {
-            fatalError()
+    func send(message: String, to user: String) {
+        communicator.sendMessage(string: message, to: user) { success, error in
+            if success {
+                self.dataService.saveSendedMessage(conversation: self.activeConversation!, to: user, text: message)
+            } else {
+                print("\(String(describing: error))")
+            }
+            
         }
-        communicator.sendMessage(string: message.text, to: recipientUsername, completionHandler: nil)
     }
 }
 
 extension CommunicatorManager: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
 
-        let conversation = dataService.findOrIntesrConversation(userId: userID)
-        let user = dataService.findOrInsertUser(userId: userID)
-        conversation?.addToParticipants(user)
+        dataService.saveFoundedConversation(conversationId: userID)
         
         contactsDelegate?.contactListUpdated()
         
@@ -84,8 +88,11 @@ extension CommunicatorManager: CommunicatorDelegate {
 
     func didRecievedMessage(text: String, fromUser: String, toUser: String) {
         
-        
         contactsDelegate?.contactListUpdated()
+        let conversation = dataService.findConversation(conversationId: fromUser)
+        
+        
+        dataService.saveReceivedMessage(conversation: conversation!, conversationId: fromUser, text: text)
         
         if fromUser == activeContactName {
             activeContactDelegate?.didRecieve(message: text)

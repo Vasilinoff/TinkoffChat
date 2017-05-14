@@ -23,3 +23,17 @@ extension Message: MessageCellConfiguration {
     @NSManaged public var conversation: Conversation?
 
 }
+
+extension Message {
+    static func fetchRequestMessage(context: NSManagedObjectContext, conversationId: String) -> NSFetchRequest<Message>? {
+        let templateName = "Message"
+        let model = context.persistentStoreCoordinator?.managedObjectModel
+        guard let fetchRequest = model?.fetchRequestFromTemplate(withName: templateName, substitutionVariables: ["conversationId" : conversationId]) as? NSFetchRequest<Message> else {
+            assert(false, "No template with name \(templateName)")
+            
+            return nil
+        }
+        
+        return fetchRequest
+    }
+}

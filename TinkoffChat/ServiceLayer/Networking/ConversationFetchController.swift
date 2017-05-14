@@ -11,16 +11,15 @@ class ConversationFetchController : NSObject, NSFetchedResultsControllerDelegate
     fileprivate let tableView: UITableView
     fileprivate let fetchResultsController: NSFetchedResultsController<Message>
     
-    
     init(with tableView: UITableView, identifier: String) {
         self.tableView = tableView
+        let context = CoreDataStack.sharedCoreDataStack.mainContext!
         
-        let fetchRequest: NSFetchRequest<Message> = Message.fetchRequest(model: (CoreDataStack.sharedCoreDataStack.mainContext?.persistentStoreCoordinator?.managedObjectModel)!, conversationIdentifier: identifier)!
+        let fetchRequest: NSFetchRequest<Message> = Message.fetchRequestMessage(context: context, conversationId: identifier)!
         fetchRequest.sortDescriptors = [NSSortDescriptor(key:#keyPath(Message.date), ascending: false)]
         
-        let context = CoreDataStack.sharedCoreDataStack.mainContext
         
-        self.fetchResultsController = NSFetchedResultsController<Message>(fetchRequest: fetchRequest, managedObjectContext: context!, sectionNameKeyPath: nil, cacheName: nil)
+        self.fetchResultsController = NSFetchedResultsController<Message>(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
         super.init()
         self.tableView.dataSource = self
@@ -105,11 +104,21 @@ extension ConversationFetchController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier:conversationCell, for:indexPath) as! ContactTableViewCell
+        let message = fetchResultsController.object(at: indexPath)
+        
+        var cell: MessageCell
+        if message.received {
+            cell = tableView.dequeueReusableCell(withIdentifier: receivedCellId, for: indexPath) as! MessageCell
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: sendedCellId, for: indexPath) as! MessageCell
+        }
+        
+        cell.textOfMessage.text = message.text
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        cell.dateOfMessage?.text = dateFormatter.string(from: (message.date))
+        
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return numberOfRows(inSection: section) == 0 ? nil : Optional<String>(headerTitles[section])
     }
 }

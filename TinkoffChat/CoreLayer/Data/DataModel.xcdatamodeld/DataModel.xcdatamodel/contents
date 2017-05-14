@@ -32,8 +32,8 @@
         <relationship name="conversations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Conversation" inverseName="participants" inverseEntity="Conversation" syncable="YES"/>
     </entity>
     <fetchRequest name="AppUser" entity="AppUser"/>
-    <fetchRequest name="Conversation" entity="Conversation"/>
-    <fetchRequest name="Message" entity="Message" predicateString="conversation.conversationId == $identifier"/>
+    <fetchRequest name="Conversation" entity="Conversation" predicateString="conversationId == $identifier"/>
+    <fetchRequest name="Message" entity="Message" predicateString="conversation.conversationId == $conversationId"/>
     <fetchRequest name="Profile" entity="Profile"/>
     <fetchRequest name="User" entity="User" predicateString="userId == $identifier"/>
     <elements>

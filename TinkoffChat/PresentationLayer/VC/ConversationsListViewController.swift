@@ -11,27 +11,10 @@ class ConversationsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileButton: UIBarButtonItem!
-    var conversationListModel: ConversationListModel?
+    var conversationListFetchController: ConversationListFetchController?
     
     let serviceManager = CommunicatorManager()
     
-    var conversations: [ConversationCellConfiguration] {
-        get {
-            return serviceManager.transportConversation
-        }
-    }
-    //MARK: Фильтр для онлайн
-    var conversationsOnline: [ConversationCellConfiguration] {
-        get {
-            return conversations.filter({ $0.online })
-        }
-    }
-    //MARK: Фильтр для офлайн
-    var conversationsOffline: [ConversationCellConfiguration] {
-        get {
-            return conversations.filter({ (!$0.online)  })
-        }
-    }
     
     private var sectionHeaderTitles = ["Online", "History"]
     
@@ -43,7 +26,7 @@ class ConversationsListViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         
-        conversationListModel = ConversationListModel(with: tableView)
+        conversationListFetchController = ConversationListFetchController(with: tableView)
     }
 
 //    //MARK: функции для протокола
@@ -104,6 +87,7 @@ class ConversationsListViewController: UIViewController {
                 let name = cell.nameLabel.text
                 
                 serviceManager.activeContactName = name
+                serviceManager.activeConversation = cell.conversation
                 serviceManager.activeContactDelegate = controller
             }
         }

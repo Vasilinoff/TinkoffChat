@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ConversationViewController: UIViewController {
     
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
@@ -17,31 +17,23 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var sendMessageButton: UIButton!
     
     var contactManager: ContactManager!
+    var conversationFetchController: ConversationFetchController?
     
-    var conversationId: String? {
+    var conversationId: String {
         get {
-            return contactManager.activeContact?.name
+            return contactManager.activeContactName!
         }
     }
-    
-    
-    var messages: [MessageCellConfiguration] {
-        get {
-            return contactManager.activeContactMessages!
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //MARK: заполняем сообщения
-        messagesTableView.dataSource = self
-        messagesTableView.delegate = self
         messagesTableView.rowHeight = UITableViewAutomaticDimension
         messagesTableView.estimatedRowHeight = 44
         messagesTableView.separatorStyle = .none
         
-        sendMessageButton.isEnabled = false
+        conversationFetchController = ConversationFetchController(with: messagesTableView, identifier: conversationId)
+        
+        //sendMessageButton.isEnabled = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillHide(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -88,39 +80,17 @@ class ConversationViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func sendMessageAction(_ sender: UIButton) {
-        contactManager.send(message: messageTextField.text!)
+        
+        
+        contactManager.send(message: messageTextField.text!, to: conversationId)
         messageTextField.text = ""
         sendMessageButton.isEnabled = false
         DispatchQueue.main.async {
             self.messagesTableView.reloadData()
         }
     }
-    
-    //MARK: соответствуем протоколу
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var cell: MessageCell
-        if messages[indexPath.row].received {
-            cell = messagesTableView.dequeueReusableCell(withIdentifier: "received", for: indexPath) as! MessageCell
-        } else {
-            cell = messagesTableView.dequeueReusableCell(withIdentifier: "sended", for: indexPath) as! MessageCell
-        }
-        
-        cell.textOfMessage.text = messages[indexPath.row].text
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        cell.dateOfMessage?.text = dateFormatter.string(from: (messages[indexPath.row].date))
-        
-        return cell
-    }
+
+
 }
 
 extension ConversationViewController: ContactManagerDelegate {

@@ -23,6 +23,19 @@ extension User {
 
 }
 
+extension User {
+    static func fetchRequestUser(model: NSManagedObjectModel, identifier: String) -> NSFetchRequest<User>? {
+        let templateName = "User"
+        guard let fetchRequest = model.fetchRequestFromTemplate(withName: templateName, substitutionVariables: ["identifier" : identifier]) as? NSFetchRequest<User> else {
+            assert(false, "No template with name \(templateName)")
+            
+            return nil
+        }
+        
+        return fetchRequest
+    }
+}
+
 // MARK: Generated accessors for conversations
 extension User {
 

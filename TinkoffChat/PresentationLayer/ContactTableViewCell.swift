@@ -14,5 +14,6 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel?
     
+    var conversation: Conversation?
     
 }

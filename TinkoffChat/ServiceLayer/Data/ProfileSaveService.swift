@@ -27,7 +27,7 @@ class ProfileSaveService {
     
     func saveProfileData(_ profileModel: ProfileModel, completion: @escaping (Bool, Error?) -> Void) {
         if let context = coreDataStack.saveContext {
-            if let profile = findOrInsertProfile(in: context) {
+            if let profile = findOrCreateProfile(in: context) {
                 profile.name = profileModel.nameValue
                 profile.about = profileModel.aboutValue
                 profile.image = UIImageJPEGRepresentation(profileModel.profileImage, 1.0) as  Data?
@@ -37,7 +37,7 @@ class ProfileSaveService {
         }
     }
     
-    fileprivate func findOrInsertProfile(in context: NSManagedObjectContext) -> Profile? {
+    fileprivate func findOrCreateProfile(in context: NSManagedObjectContext) -> Profile? {
         var profile: Profile?
         guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
             print("No managed object model in context!")
@@ -76,7 +76,7 @@ class ProfileSaveService {
     func loadProfileData(completion: @escaping (ProfileModel?, Error?) -> Void) {
         var profileModel: ProfileModel?
         if let context = coreDataStack.mainContext {
-            if let profile = findOrInsertProfile(in: context) {
+            if let profile = findOrCreateProfile(in: context) {
                 if let profileImage = profile.image {
                     let image = UIImage(data: profileImage as Data)
                     profileModel = ProfileModel(name: profile.name, about: profile.about, image: image)

@@ -32,7 +32,7 @@
 		D960CC1B1EB0C5910075E52A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960CC1A1EB0C5910075E52A /* CoreDataStack.swift */; };
 		D96850BD1EB8BC4000EF351A /* ProfileSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */; };
 		D96CA6131EB7FF3F0049959A /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D96CA6111EB7FF3F0049959A /* DataModel.xcdatamodeld */; };
-		D989D65A1EC10CD4000B3107 /* FetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989D6591EC10CD4000B3107 /* FetchedResultsControllerDelegate.swift */; };
+		D989D65A1EC10CD4000B3107 /* ConversationListFetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989D6591EC10CD4000B3107 /* ConversationListFetchController.swift */; };
 		D9A40D741EAD0082006445CC /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A40D731EAD0082006445CC /* CommunicatorManager.swift */; };
 		D9BD71991EC7AEA50060A84E /* ConversationFetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */; };
 		D9C350511E954F6400E08854 /* Communitator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C350501E954F6400E08854 /* Communitator.swift */; };
@@ -76,9 +76,9 @@
 		D960CC1A1EB0C5910075E52A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSaveService.swift; sourceTree = "<group>"; };
 		D96CA6121EB7FF3F0049959A /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		D989D6591EC10CD4000B3107 /* FetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FetchedResultsControllerDelegate.swift; path = ../../FetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
+		D989D6591EC10CD4000B3107 /* ConversationListFetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConversationListFetchController.swift; path = ../../ConversationListFetchController.swift; sourceTree = "<group>"; };
 		D9A40D731EAD0082006445CC /* CommunicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
-		D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationFetchController.swift; sourceTree = "<group>"; };
+		D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConversationFetchController.swift; path = ../Networking/ConversationFetchController.swift; sourceTree = "<group>"; };
 		D9C350501E954F6400E08854 /* Communitator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communitator.swift; sourceTree = "<group>"; };
 		D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		D9CD8E741E86942E004CD465 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -122,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */,
+				D989D6591EC10CD4000B3107 /* ConversationListFetchController.swift */,
+				D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */,
 				D93F56531EC3A1DB00AC15AD /* DataService.swift */,
 			);
 			path = Data;
@@ -130,10 +132,8 @@
 		D989D6561EC0D7E7000B3107 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				D989D6591EC10CD4000B3107 /* FetchedResultsControllerDelegate.swift */,
 				D9A40D731EAD0082006445CC /* CommunicatorManager.swift */,
 				D91032051EBF477A0062083D /* FlickrSearchService.swift */,
-				D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 				D96850BD1EB8BC4000EF351A /* ProfileSaveService.swift in Sources */,
 				D9F756C31E6DF37500F81911 /* AppDelegate.swift in Sources */,
 				D91031FE1EBF3FF10062083D /* Requestable.swift in Sources */,
-				D989D65A1EC10CD4000B3107 /* FetchedResultsControllerDelegate.swift in Sources */,
+				D989D65A1EC10CD4000B3107 /* ConversationListFetchController.swift in Sources */,
 				D93F564E1EC39C5600AC15AD /* User+CoreDataProperties.swift in Sources */,
 				D91032081EBF54620062083D /* RequestsFactory.swift in Sources */,
 				D9CEEABD1EBCAA4100D17716 /* ProfileImageViewController.swift in Sources */,
