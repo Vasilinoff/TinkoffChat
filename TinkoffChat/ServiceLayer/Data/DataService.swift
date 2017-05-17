@@ -13,7 +13,6 @@ import UIKit
 class DataService {
     fileprivate let coreDataStack = CoreDataStack.sharedCoreDataStack
     
-    
     fileprivate func insert<T>(in context: NSManagedObjectContext, entityName: String) -> T? {
         return NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as? T
     }
@@ -44,7 +43,6 @@ class DataService {
             let conversation = findOrCreate(in: context, request: request, entityName: "Conversation")
             conversation?.conversationId = conversationId
             
-            //performSave(context: context, completionHandler: { _,_ in  })
             return conversation
             
         }
@@ -55,7 +53,6 @@ class DataService {
     func saveFoundedConversation(conversationId: String) {
         if let context = coreDataStack.saveContext {
             let conversation = findOrCreateConversation(conversationId: conversationId)
-            
             let user = findOrCreateUser(userId: conversationId)
             conversation?.addToParticipants(user)
             performSave(context: context, completionHandler: { _,_ in })
@@ -91,13 +88,9 @@ class DataService {
 
     }
     
-    fileprivate func generateMessageId() -> String {
-        return ("\(arc4random_uniform(UINT32_MAX)) + \(Date.timeIntervalSinceReferenceDate) + \(arc4random_uniform(UINT32_MAX))".data(using: .utf8)?.base64EncodedString())!
-    }
-    
     fileprivate func createMessage(with text: String, context: NSManagedObjectContext) -> Message {
         let message = Message(context: context)
-        message.messageId = generateMessageId()
+        message.messageId = generateId()
         message.date = Date()
         message.text = text
         message.received = false
@@ -141,4 +134,8 @@ class DataService {
             completionHandler(true, nil)
         }
     }
+}
+
+func generateId() -> String {
+    return ("\(arc4random_uniform(UINT32_MAX)) + \(Date.timeIntervalSinceReferenceDate) + \(arc4random_uniform(UINT32_MAX))".data(using: .utf8)?.base64EncodedString())!
 }

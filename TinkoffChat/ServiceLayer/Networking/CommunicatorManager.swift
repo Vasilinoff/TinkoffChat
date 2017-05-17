@@ -55,7 +55,7 @@ extension CommunicatorManager: ContactManager {
 
 extension CommunicatorManager: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
-        dataService.saveFoundedConversation(conversationId: userID)
+        dataService.saveFoundedConversation(conversationId:userID)
         
         let conversation = dataService.findOrCreateConversation(conversationId: userID)
         conversation?.isOnline = true

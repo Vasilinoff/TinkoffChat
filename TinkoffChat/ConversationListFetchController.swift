@@ -5,7 +5,6 @@ import CoreData
 class ConversationListFetchController : NSObject {
     
     fileprivate let conversationCell = "conversationCell"
-    fileprivate let headerTitles = ["Online","History"]
     
     fileprivate let tableView: UITableView
     fileprivate let fetchedResultsController: NSFetchedResultsController<Conversation>
@@ -71,7 +70,7 @@ extension ConversationListFetchController: UITableViewDataSource, UITableViewDel
         cell.nameLabel.text = conversation.conversationId
         
         if conversation.isOnline == true {
-            cell.backgroundColor = UIColor(red: 243/255, green: 232/255, blue: 234/255, alpha: 1.0)
+            cell.backgroundColor = UIColor(red: 102/255, green: 255/255, blue: 204/255, alpha: 0.3)
         } else {
             cell.backgroundColor = UIColor.white
         }

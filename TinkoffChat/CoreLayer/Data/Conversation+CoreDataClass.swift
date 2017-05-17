@@ -15,7 +15,7 @@ public class Conversation: NSManagedObject {
 
 }
 
-extension Conversation: ConversationCellConfiguration {
+extension Conversation: ConversationConfiguration {
     fileprivate var lastMessage: Message? {
         return (self.messages?.allObjects as! [Message]).sorted(by: { $0.date < $1.date }).last
     }

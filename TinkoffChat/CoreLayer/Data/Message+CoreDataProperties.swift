@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-extension Message: MessageCellConfiguration {
+extension Message: MessageConfiguration {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Message> {
         return NSFetchRequest<Message>(entityName: "Message")
