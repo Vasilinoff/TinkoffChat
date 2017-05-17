@@ -42,6 +42,7 @@
 		D9CEEABD1EBCAA4100D17716 /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEABC1EBCAA4100D17716 /* ProfileImageViewController.swift */; };
 		D9CEEAC31EBCABE400D17716 /* FlickrPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEAC01EBCABE400D17716 /* FlickrPhoto.swift */; };
 		D9CEEAC61EBCB52800D17716 /* FlickrPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEAC51EBCB52800D17716 /* FlickrPhotoCell.swift */; };
+		D9F3E5271ECCAF4800910A4D /* FRCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F3E5261ECCAF4800910A4D /* FRCDelegate.swift */; };
 		D9F756C31E6DF37500F81911 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F756C21E6DF37500F81911 /* AppDelegate.swift */; };
 		D9F756C51E6DF37500F81911 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F756C41E6DF37500F81911 /* ProfileViewController.swift */; };
 		D9F756C81E6DF37500F81911 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9F756C61E6DF37500F81911 /* Main.storyboard */; };
@@ -85,6 +86,7 @@
 		D9CEEABC1EBCAA4100D17716 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
 		D9CEEAC01EBCABE400D17716 /* FlickrPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhoto.swift; sourceTree = "<group>"; };
 		D9CEEAC51EBCB52800D17716 /* FlickrPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhotoCell.swift; sourceTree = "<group>"; };
+		D9F3E5261ECCAF4800910A4D /* FRCDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FRCDelegate.swift; sourceTree = "<group>"; };
 		D9F756BF1E6DF37500F81911 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9F756C21E6DF37500F81911 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9F756C41E6DF37500F81911 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				D989D6591EC10CD4000B3107 /* ConversationListFetchController.swift */,
 				D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */,
 				D93F56531EC3A1DB00AC15AD /* DataService.swift */,
+				D9F3E5261ECCAF4800910A4D /* FRCDelegate.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				D93F56491EC39C5600AC15AD /* AppUser+CoreDataClass.swift in Sources */,
 				D93F56471EC39C5600AC15AD /* Conversation+CoreDataClass.swift in Sources */,
 				D9CD8E731E868FFF004CD465 /* ConversationViewController.swift in Sources */,
+				D9F3E5271ECCAF4800910A4D /* FRCDelegate.swift in Sources */,
 				D96850BD1EB8BC4000EF351A /* ProfileSaveService.swift in Sources */,
 				D9F756C31E6DF37500F81911 /* AppDelegate.swift in Sources */,
 				D91031FE1EBF3FF10062083D /* Requestable.swift in Sources */,

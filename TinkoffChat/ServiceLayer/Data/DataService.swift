@@ -38,7 +38,7 @@ class DataService {
         return value
     }
     
-    func findConversation(conversationId: String) -> Conversation? {
+    func findOrCreateConversation(conversationId: String) -> Conversation? {
         if let context = coreDataStack.saveContext {
             let request = Conversation.fetchRequestConversation(model: (context.persistentStoreCoordinator?.managedObjectModel)!, identifier: conversationId)!
             let conversation = findOrCreate(in: context, request: request, entityName: "Conversation")
@@ -54,9 +54,9 @@ class DataService {
     
     func saveFoundedConversation(conversationId: String) {
         if let context = coreDataStack.saveContext {
-            let conversation = findConversation(conversationId: conversationId)
+            let conversation = findOrCreateConversation(conversationId: conversationId)
             
-            let user = findUser(userId: conversationId)
+            let user = findOrCreateUser(userId: conversationId)
             conversation?.addToParticipants(user)
             performSave(context: context, completionHandler: { _,_ in })
             
@@ -106,7 +106,7 @@ class DataService {
     }
     
  
-    func findUser(userId: String) -> User {
+    func findOrCreateUser(userId: String) -> User {
         let context = coreDataStack.saveContext
         let request = User.fetchRequestUser(model: (context?.persistentStoreCoordinator?.managedObjectModel)!, identifier: userId)!
         let user = findOrCreate(in: context!, request: request, entityName: "User")

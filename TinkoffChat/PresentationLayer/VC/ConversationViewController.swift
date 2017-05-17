@@ -89,10 +89,6 @@ class ConversationViewController: UIViewController {
             self.messagesTableView.reloadData()
         }
     }
-    
-    
-
-
 }
 
 extension ConversationViewController: ContactManagerDelegate {

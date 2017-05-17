@@ -30,7 +30,6 @@ class CommunicatorManager {
     var communicator: Communicator
     
     var activeContactName: String?
-    //var activeConversation: Conversation?
     
     init() {
         self.communicator = MultipeerCommunicator()
@@ -44,7 +43,7 @@ extension CommunicatorManager: ContactManager {
     func send(message: String, to user: String) {
         communicator.sendMessage(string: message, to: user) { success, error in
             if success {
-                let conversation = self.dataService.findConversation(conversationId: self.activeContactName!)
+                let conversation = self.dataService.findOrCreateConversation(conversationId: self.activeContactName!)
                 self.dataService.saveSendedMessage(conversation: conversation!, to: user, text: message)
             } else {
                 print("\(String(describing: error))")
@@ -58,9 +57,9 @@ extension CommunicatorManager: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
         dataService.saveFoundedConversation(conversationId: userID)
         
-        let conversation = dataService.findConversation(conversationId: userID)
+        let conversation = dataService.findOrCreateConversation(conversationId: userID)
         conversation?.isOnline = true
-        let user = dataService.findUser(userId: userID)
+        let user = dataService.findOrCreateUser(userId: userID)
         user.isOnline = true
         
         contactsDelegate?.contactListUpdated()
@@ -71,21 +70,11 @@ extension CommunicatorManager: CommunicatorDelegate {
     }
 
     func didLostUser(userID: String) {
-        let conversation = dataService.findConversation(conversationId: userID)
+        let conversation = dataService.findOrCreateConversation(conversationId: userID)
         conversation?.isOnline = false
         
-        let user = dataService.findUser(userId: userID)
+        let user = dataService.findOrCreateUser(userId: userID)
         user.isOnline = false
-//        let lostConversation = conversations.filter({ $0.name == userID  })
-//        
-//        for conversation in lostConversation {
-//            conversation.participants
-//        }
-//        contactsDelegate?.contactListUpdated()
-//        
-//        if userID == activeContact?.name {
-//            activeContactDelegate?.becomeOffline()
-//        }
     }
 
     func failedToStartBrowsingForUsers(error: Error) {
@@ -99,8 +88,7 @@ extension CommunicatorManager: CommunicatorDelegate {
     func didRecievedMessage(text: String, fromUser: String, toUser: String) {
         
         contactsDelegate?.contactListUpdated()
-        let conversation = dataService.findConversation(conversationId: fromUser)
-        
+        let conversation = dataService.findOrCreateConversation(conversationId: fromUser)
         
         dataService.saveReceivedMessage(conversation: conversation!, conversationId: fromUser, text: text)
         

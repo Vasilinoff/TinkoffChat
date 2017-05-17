@@ -2,86 +2,35 @@ import Foundation
 import UIKit
 import CoreData
 
-class ConversationFetchController : NSObject, NSFetchedResultsControllerDelegate {
+class ConversationFetchController: NSObject {
     
     fileprivate let receivedCellId = "received"
     fileprivate let sendedCellId = "sended"
     
     fileprivate let tableView: UITableView
-    fileprivate let fetchResultsController: NSFetchedResultsController<Message>
+    fileprivate let fetchedResultsController: NSFetchedResultsController<Message>
+    
+    fileprivate let frcDelegate: FRCDelegate
     
     init(with tableView: UITableView, identifier: String) {
         self.tableView = tableView
         let context = CoreDataStack.sharedCoreDataStack.mainContext!
-        
+        self.frcDelegate = FRCDelegate(tableView: tableView)
         let fetchRequest: NSFetchRequest<Message> = Message.fetchRequestMessage(context: context, conversationId: identifier)!
         fetchRequest.sortDescriptors = [NSSortDescriptor(key:#keyPath(Message.date), ascending: true)]
         
         
-        self.fetchResultsController = NSFetchedResultsController<Message>(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        self.fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
         super.init()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.fetchResultsController.delegate = self
+        self.fetchedResultsController.delegate = frcDelegate
         
         do {
-            try self.fetchResultsController.performFetch()
+            try self.fetchedResultsController.performFetch()
         } catch {
             print("Error fetching: \(error)")
-        }
-    }
-    
-    //MARK: -
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .delete:
-            deleteRowsInTableAtIndexPath(indexPath)
-        case .insert:
-            insetRowsInTableAtIndexPath(newIndexPath)
-        case .move:
-            deleteRowsInTableAtIndexPath(indexPath)
-            insetRowsInTableAtIndexPath(newIndexPath)
-        case .update:
-            reloadRowsInTableAtIndexPath(indexPath)
-        }
-    }
-    
-    fileprivate func deleteRowsInTableAtIndexPath(_ indexPath: IndexPath?) {
-        if let indexPath = indexPath {
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-    }
-    
-    fileprivate func insetRowsInTableAtIndexPath(_ indexPath: IndexPath?) {
-        if let indexPath = indexPath {
-            tableView.insertRows(at: [indexPath], with: .automatic)
-        }
-    }
-    
-    fileprivate func reloadRowsInTableAtIndexPath(_ indexPath: IndexPath?) {
-        if let indexPath = indexPath {
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: 		NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        switch type {
-        case .delete:
-            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
-        case .insert:
-            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
-        default:
-            break
         }
     }
 }
@@ -89,7 +38,7 @@ class ConversationFetchController : NSObject, NSFetchedResultsControllerDelegate
 extension ConversationFetchController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard  let sectionsCount = fetchResultsController.sections?.count else { return 0 }
+        guard  let sectionsCount = fetchedResultsController.sections?.count else { return 0 }
         return sectionsCount
     }
     
@@ -98,12 +47,12 @@ extension ConversationFetchController: UITableViewDataSource, UITableViewDelegat
     }
     
     func numberOfRows(inSection section: Int) -> Int {
-        guard let sections = fetchResultsController.sections else { return 0 }
+        guard let sections = fetchedResultsController.sections else { return 0 }
         return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = fetchResultsController.object(at: indexPath)
+        let message = fetchedResultsController.object(at: indexPath)
         
         var cell: MessageCell
         if message.received {

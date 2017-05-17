@@ -119,7 +119,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c8I-sJ-UqQ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="609"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="received" id="pMK-3a-hT8" customClass="MessageCell" customModule="TinkoffChat" customModuleProvider="target">
@@ -229,7 +229,7 @@
                             <constraint firstItem="Wrg-K1-vYF" firstAttribute="leading" secondItem="kWI-xn-3Tp" secondAttribute="trailing" constant="8" id="STQ-xi-83h"/>
                             <constraint firstAttribute="trailing" secondItem="c8I-sJ-UqQ" secondAttribute="trailing" id="YzG-y1-eqN"/>
                             <constraint firstItem="3iK-iW-OXf" firstAttribute="top" secondItem="kWI-xn-3Tp" secondAttribute="bottom" constant="20" id="g13-jV-kPC"/>
-                            <constraint firstItem="3iK-iW-OXf" firstAttribute="top" secondItem="c8I-sJ-UqQ" secondAttribute="bottom" id="n1A-ec-Xas"/>
+                            <constraint firstItem="kWI-xn-3Tp" firstAttribute="top" secondItem="c8I-sJ-UqQ" secondAttribute="bottom" constant="8" id="kRS-xA-J8U"/>
                             <constraint firstItem="3iK-iW-OXf" firstAttribute="top" secondItem="Wrg-K1-vYF" secondAttribute="bottom" constant="20" id="seC-6y-NHM"/>
                         </constraints>
                     </view>

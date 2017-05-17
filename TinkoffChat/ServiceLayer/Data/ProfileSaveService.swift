@@ -72,7 +72,6 @@ class ProfileSaveService {
         return NSEntityDescription.insertNewObject(forEntityName: "Profile", into: context) as? Profile
     }
 
-    
     func loadProfileData(completion: @escaping (ProfileModel?, Error?) -> Void) {
         var profileModel: ProfileModel?
         if let context = coreDataStack.mainContext {
