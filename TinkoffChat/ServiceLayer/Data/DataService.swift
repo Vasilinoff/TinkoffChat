@@ -59,6 +59,23 @@ class DataService {
             
         }
     }
+    
+    func makeConversationsOffline() {
+        if let context = coreDataStack.saveContext {
+            let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+            do {
+                let conversations = try context.fetch(request)
+                
+                for conversation in conversations {
+                    conversation.isOnline = false
+                }
+                performSave(context: context, completionHandler: { _,_ in })
+                
+            } catch {
+                
+            }
+        }
+    }
 
     
     func saveSendedMessage(conversation: Conversation, to user: String, text: String) {

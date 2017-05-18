@@ -7,24 +7,13 @@
 //
 import Foundation
 
-protocol ContactsDelegate: class {
-    func contactListUpdated()
-}
-
-protocol ContactManagerDelegate: class {
-    func didRecieve(message: String)
-    func becomeOnline()
-    func becomeOffline()
-}
-
 protocol ContactManager {
     func send(message: String, to user: String)
     var activeContactName: String? { get }
 }
 
 class CommunicatorManager {
-    weak var contactsDelegate: ContactsDelegate?
-    weak var activeContactDelegate: ContactManagerDelegate?
+
     var dataService = DataService()
     
     var communicator: Communicator
@@ -61,12 +50,7 @@ extension CommunicatorManager: CommunicatorDelegate {
         conversation?.isOnline = true
         let user = dataService.findOrCreateUser(userId: userID)
         user.isOnline = true
-        
-        contactsDelegate?.contactListUpdated()
-        
-        if userID == activeContactName {
-            activeContactDelegate?.becomeOnline()
-        }
+
     }
 
     func didLostUser(userID: String) {
@@ -87,13 +71,9 @@ extension CommunicatorManager: CommunicatorDelegate {
 
     func didRecievedMessage(text: String, fromUser: String, toUser: String) {
         
-        contactsDelegate?.contactListUpdated()
         let conversation = dataService.findOrCreateConversation(conversationId: fromUser)
         
         dataService.saveReceivedMessage(conversation: conversation!, conversationId: fromUser, text: text)
         
-        if fromUser == activeContactName {
-            activeContactDelegate?.didRecieve(message: text)
-        }
     }
 }

@@ -20,10 +20,11 @@ class ConversationsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        serviceManager.contactsDelegate = self
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
+        
+        serviceManager.dataService.makeConversationsOffline()
         
         conversationListFetchController = ConversationListFetchController(with: tableView)
     }
@@ -39,18 +40,9 @@ class ConversationsListViewController: UIViewController {
                 let name = cell.nameLabel.text
                 
                 serviceManager.activeContactName = name
-                //serviceManager.activeConversation = cell.conversation
-                serviceManager.activeContactDelegate = controller
+                
             }
         }
     }
 }
 
-extension ConversationsListViewController: ContactsDelegate {
-    func contactListUpdated() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-}

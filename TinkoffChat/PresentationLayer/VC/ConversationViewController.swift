@@ -33,7 +33,7 @@ class ConversationViewController: UIViewController {
         
         conversationFetchController = ConversationFetchController(with: messagesTableView, identifier: conversationId)
         
-        //sendMessageButton.isEnabled = false
+        sendMessageButton.isEnabled = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillHide(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -91,22 +91,3 @@ class ConversationViewController: UIViewController {
     }
 }
 
-extension ConversationViewController: ContactManagerDelegate {
-    func didRecieve(message: String) {
-        DispatchQueue.main.async {
-            self.messagesTableView.reloadData()
-        }
-    }
-    func becomeOnline() {
-        sendMessageButton.isEnabled = true
-        DispatchQueue.main.async {
-            self.messagesTableView.reloadData()
-        }
-    }
-    func becomeOffline() {
-        sendMessageButton.isEnabled = false
-        DispatchQueue.main.async {
-            self.messagesTableView.reloadData()
-        }
-    }
-}
