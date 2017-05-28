@@ -47,7 +47,7 @@ class MultipeerCommunicator: NSObject, Communicator {
         }
         
         do {
-            let messageData = createMessageData(text: string)
+            let messageData = try createMessageData(text: string)
             try session.send(messageData, toPeers: [recipentPeerID], with: .reliable)
         } catch {
             print("can't send this message", error)
@@ -167,13 +167,14 @@ extension MultipeerCommunicator: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("didReceiveData from peer:\(peerID.displayName)")
-        
-        guard let messageText = parseMessageData(data: data) else {
-            print("text not found")
-            return
+        do {
+            let messageText = try parseMessageData(data: data)
+            delegate?.didRecievedMessage(text: messageText!, fromUser: peerID.displayName, toUser: myPeerID.displayName)
+            
+        } catch {
+            print("receive message error")
         }
         
-        delegate?.didRecievedMessage(text: messageText, fromUser: peerID.displayName, toUser: myPeerID.displayName)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -195,20 +196,19 @@ extension MultipeerCommunicator: MCSessionDelegate {
 }
 
 extension MultipeerCommunicator {
-    func createMessageData(text: String) -> Data {
+    func createMessageData(text: String) throws -> Data {
         let messageDictionary = [
             "eventType": "TextMessage",
             "messageId": generateMessageId(),
             "text" : text
         ]
-        return NSKeyedArchiver.archivedData(withRootObject: messageDictionary)
+        return try JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted)
     }
     
-    func parseMessageData(data: Data) -> String? {
-        guard let messageDictionary = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String], let message = messageDictionary["text"] else {
-            print("parse message data error")
-            return nil
-        }
+    func parseMessageData(data: Data) throws -> String? {
+        let messageDictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String]
+        let message = messageDictionary?["text"]
+        
         return message
     }
     

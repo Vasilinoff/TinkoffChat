@@ -28,6 +28,7 @@
 		D93F56521EC39D1700AC15AD /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93F56501EC39D1700AC15AD /* Profile+CoreDataProperties.swift */; };
 		D93F56541EC3A1DB00AC15AD /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93F56531EC3A1DB00AC15AD /* DataService.swift */; };
 		D944D8BE1E85E0F4004BAD8F /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */; };
+		D9465DA91EDB1AC300CA4990 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9465DA81EDB1AC300CA4990 /* AnimationViewController.swift */; };
 		D960CC1B1EB0C5910075E52A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960CC1A1EB0C5910075E52A /* CoreDataStack.swift */; };
 		D96850BD1EB8BC4000EF351A /* ProfileSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */; };
 		D96CA6131EB7FF3F0049959A /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D96CA6111EB7FF3F0049959A /* DataModel.xcdatamodeld */; };
@@ -72,21 +73,22 @@
 		D93F56501EC39D1700AC15AD /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D93F56531EC3A1DB00AC15AD /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		D944D8BD1E85E0F4004BAD8F /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		D9465DA81EDB1AC300CA4990 /* AnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		D960CC1A1EB0C5910075E52A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		D96850BC1EB8BC4000EF351A /* ProfileSaveService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSaveService.swift; sourceTree = "<group>"; };
 		D96CA6121EB7FF3F0049959A /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		D989D6591EC10CD4000B3107 /* ConversationListFetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConversationListFetchController.swift; path = ConversationListFetchController.swift; sourceTree = "<group>"; };
+		D989D6591EC10CD4000B3107 /* ConversationListFetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationListFetchController.swift; sourceTree = "<group>"; };
 		D9A40D731EAD0082006445CC /* CommunicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
-		D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConversationFetchController.swift; path = ConversationFetchController.swift; sourceTree = "<group>"; };
+		D9BD71981EC7AEA50060A84E /* ConversationFetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationFetchController.swift; sourceTree = "<group>"; };
 		D9C350501E954F6400E08854 /* Communitator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communitator.swift; sourceTree = "<group>"; };
 		D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		D9CD8E741E86942E004CD465 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		D9CEEABC1EBCAA4100D17716 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
 		D9CEEAC01EBCABE400D17716 /* FlickrPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhoto.swift; sourceTree = "<group>"; };
-		D9CEEAC51EBCB52800D17716 /* FlickrPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrPhotoCell.swift; path = FlickrPhotoCell.swift; sourceTree = "<group>"; };
+		D9CEEAC51EBCB52800D17716 /* FlickrPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhotoCell.swift; sourceTree = "<group>"; };
 		D9F3E5261ECCAF4800910A4D /* FRCDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FRCDelegate.swift; sourceTree = "<group>"; };
-		D9F3E5291ECCBE4100910A4D /* MessageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageProtocol.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
-		D9F3E52B1ECCBECD00910A4D /* ConversationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConversationProtocol.swift; path = ConversationProtocol.swift; sourceTree = "<group>"; };
+		D9F3E5291ECCBE4100910A4D /* MessageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
+		D9F3E52B1ECCBECD00910A4D /* ConversationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationProtocol.swift; sourceTree = "<group>"; };
 		D9F756BF1E6DF37500F81911 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9F756C21E6DF37500F81911 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9F756C41E6DF37500F81911 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		D9BC87841EA0DA10006701EC /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				D9465DA81EDB1AC300CA4990 /* AnimationViewController.swift */,
 				D9CD8E721E868FFF004CD465 /* ConversationViewController.swift */,
 				D912BE9B1E85A5FB00C53CB2 /* ConversationsListViewController.swift */,
 				D9CEEABC1EBCAA4100D17716 /* ProfileImageViewController.swift */,
@@ -203,7 +206,6 @@
 				D9CEEAC51EBCB52800D17716 /* FlickrPhotoCell.swift */,
 				D9CD8E741E86942E004CD465 /* MessageCell.swift */,
 			);
-			name = Cells;
 			path = Cells;
 			sourceTree = "<group>";
 		};
@@ -221,7 +223,6 @@
 				D93F56451EC39C5600AC15AD /* User+CoreDataClass.swift */,
 				D93F56461EC39C5600AC15AD /* User+CoreDataProperties.swift */,
 			);
-			name = "generated classes";
 			path = "generated classes";
 			sourceTree = "<group>";
 		};
@@ -231,7 +232,6 @@
 				D9F3E52B1ECCBECD00910A4D /* ConversationProtocol.swift */,
 				D9F3E5291ECCBE4100910A4D /* MessageProtocol.swift */,
 			);
-			name = protocols;
 			path = protocols;
 			sourceTree = "<group>";
 		};
@@ -240,7 +240,6 @@
 			children = (
 				D9C350501E954F6400E08854 /* Communitator.swift */,
 			);
-			name = Multipeer;
 			path = Multipeer;
 			sourceTree = "<group>";
 		};
@@ -254,7 +253,6 @@
 				D91031FD1EBF3FF10062083D /* Requestable.swift */,
 				D91032071EBF54620062083D /* RequestsFactory.swift */,
 			);
-			name = Flickr;
 			path = Flickr;
 			sourceTree = "<group>";
 		};
@@ -398,6 +396,7 @@
 				D9F3E52A1ECCBE4100910A4D /* MessageProtocol.swift in Sources */,
 				D93F56521EC39D1700AC15AD /* Profile+CoreDataProperties.swift in Sources */,
 				D9A40D741EAD0082006445CC /* CommunicatorManager.swift in Sources */,
+				D9465DA91EDB1AC300CA4990 /* AnimationViewController.swift in Sources */,
 				D96CA6131EB7FF3F0049959A /* DataModel.xcdatamodeld in Sources */,
 				D93F564D1EC39C5600AC15AD /* User+CoreDataClass.swift in Sources */,
 			);

@@ -86,7 +86,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gPF-6D-esu">
-                        <barButtonItem key="rightBarButtonItem" title="Профиль" style="plain" id="ji1-zN-DWE">
+                        <barButtonItem key="rightBarButtonItem" title="Профиль" id="ji1-zN-DWE">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vYs-yt-zgw">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -435,7 +435,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rX6-cP-70k" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Xgv-3U-WYI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xgv-3U-WYI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -453,7 +453,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J7V-jY-8Si" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2Zh-yU-YaK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2Zh-yU-YaK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -471,7 +471,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EF1-cG-GtL" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ebJ-Bj-I0H">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ebJ-Bj-I0H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -16,8 +16,10 @@ class ConversationViewController: UIViewController {
     @IBOutlet weak var sendButtonBottomConstrain: NSLayoutConstraint!
     @IBOutlet weak var sendMessageButton: UIButton!
     
+    
     var contactManager: ContactManager!
     var conversationFetchController: ConversationFetchController?
+
     
     var conversationId: String {
         get {
@@ -26,6 +28,8 @@ class ConversationViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setTitleName()
         
         messagesTableView.rowHeight = UITableViewAutomaticDimension
         messagesTableView.estimatedRowHeight = 44
@@ -37,8 +41,6 @@ class ConversationViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ConversationViewController.keyboardWillHide(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
-        self.title = conversationId
     }
     
     func keyboardWillShow(_ notification: Notification) {
@@ -73,7 +75,26 @@ class ConversationViewController: UIViewController {
     
     @IBAction func messageTextFieldChanged(_ sender: UITextField) {
         if (messageTextField.text != "") {
+            
+            if !sendMessageButton.isEnabled {
+                let transform = sendMessageButton.transform
+                
+                UIView.animate(withDuration: 0.5, delay: 0, options: .transitionFlipFromTop, animations: {
+                    self.sendMessageButton.transform = CGAffineTransform.init(scaleX: 1.15, y: 1.15)
+                    
+                }) { (success: Bool) in
+                    if success {
+                        
+                        UIView.animate(withDuration: 0.5, animations: {
+                            
+                            self.sendMessageButton.transform = transform
+                        })
+                    }
+                }
+            }
+            
             sendMessageButton.isEnabled = true
+            
         } else {
             sendMessageButton.isEnabled = false
         }
@@ -81,13 +102,48 @@ class ConversationViewController: UIViewController {
     
     @IBAction func sendMessageAction(_ sender: UIButton) {
         
-        
         contactManager.send(message: messageTextField.text!, to: conversationId)
         messageTextField.text = ""
         sendMessageButton.isEnabled = false
+    }
+    
+    
+    fileprivate func changeTitleColorAnimation(with color: UIColor) {
+        let lablel = self.navigationItem.titleView as! UILabel
+        UIView.transition(with: lablel, duration: 1, options: .transitionCrossDissolve, animations: { lablel.textColor = color }, completion: nil)
+    }
+    
+    fileprivate func setTitleName() {
+        let titleLabel = UILabel()
+        titleLabel.text = conversationId
+        self.navigationItem.titleView = titleLabel
+        self.navigationItem.titleView?.sizeToFit()
+    }
+    
+}
+
+extension ConversationViewController: ContactManagerDelegate {
+    
+    func becomeOnline() {
+        print("online")
         DispatchQueue.main.async {
-            self.messagesTableView.reloadData()
+            UIView.animate(withDuration: 1) {
+                self.navigationItem.titleView?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }
+            
+            self.changeTitleColorAnimation(with: UIColor(red: 0/255, green: 128/255, blue: 64/255, alpha: 1))
+        }
+    }
+    
+    func becomeOffline() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 1, animations: {
+                self.navigationItem.titleView?.transform = CGAffineTransform.identity
+            })
+            
+            self.changeTitleColorAnimation(with: UIColor.black)
         }
     }
 }
+
 

@@ -12,6 +12,11 @@ protocol ContactManager {
     var activeContactName: String? { get }
 }
 
+protocol ContactManagerDelegate: class {
+    func becomeOnline()
+    func becomeOffline()
+}
+
 class CommunicatorManager {
 
     var dataService = DataService()
@@ -20,6 +25,8 @@ class CommunicatorManager {
     
     var activeContactName: String?
     
+    weak var activeContactDelegate: ContactManagerDelegate?
+
     init() {
         self.communicator = MultipeerCommunicator()
         self.communicator.delegate = self
@@ -27,8 +34,6 @@ class CommunicatorManager {
 }
 
 extension CommunicatorManager: ContactManager {
-    
-    
     func send(message: String, to user: String) {
         communicator.sendMessage(string: message, to: user) { success, error in
             if success {
@@ -37,19 +42,25 @@ extension CommunicatorManager: ContactManager {
             } else {
                 print("\(String(describing: error))")
             }
-            
         }
     }
 }
 
 extension CommunicatorManager: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
-        dataService.saveFoundedConversation(conversationId:userID)
         
         let conversation = dataService.findOrCreateConversation(conversationId: userID)
         conversation?.isOnline = true
         let user = dataService.findOrCreateUser(userId: userID)
         user.isOnline = true
+        
+        dataService.saveFoundedConversation(conversationId:userID)
+
+        
+        if userID == activeContactName {
+            activeContactDelegate?.becomeOnline()
+        }
+        
 
     }
 
@@ -59,6 +70,10 @@ extension CommunicatorManager: CommunicatorDelegate {
         
         let user = dataService.findOrCreateUser(userId: userID)
         user.isOnline = false
+        
+        if userID == activeContactName {
+            activeContactDelegate?.becomeOffline()
+        }
     }
 
     func failedToStartBrowsingForUsers(error: Error) {

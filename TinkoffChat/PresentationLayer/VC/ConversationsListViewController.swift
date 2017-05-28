@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController: AnimationViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileButton: UIBarButtonItem!
@@ -20,7 +20,7 @@ class ConversationsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         
@@ -35,14 +35,16 @@ class ConversationsListViewController: UIViewController {
             if let controller = segue.destination as? ConversationViewController {
                 let path = tableView.indexPathForSelectedRow
                 controller.contactManager = serviceManager as ContactManager
+                serviceManager.activeContactDelegate = controller
                 
                 let cell = tableView.cellForRow(at: path!) as! ContactTableViewCell
                 let name = cell.nameLabel.text
                 
-                serviceManager.activeContactName = name
-                
+                serviceManager.activeContactName = name                
             }
         }
     }
 }
+
+
 
