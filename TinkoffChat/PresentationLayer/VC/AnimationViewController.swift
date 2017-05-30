@@ -26,10 +26,8 @@ class AnimationViewController: UIViewController {
     }
     
     func longPressed(gesture: UITapGestureRecognizer)  {
-        //createFireWorks()
         if gesture.state == .began {
             print("start")
-            //CGPoint point = [recognizer locationInView:recognizer.view];
             pointTap = gesture.location(in: gesture.view)
             DispatchQueue.main.async {
                 self.createEmitter()
@@ -79,15 +77,5 @@ class AnimationViewController: UIViewController {
     func stopEmitter() {
         emitter.removeFromSuperlayer()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

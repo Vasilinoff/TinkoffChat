@@ -15,7 +15,6 @@ class ViewController: AnimationViewController, UITextFieldDelegate,UITextViewDel
         self.dismiss(animated: true, completion: nil)
     }
     fileprivate let profileSaveService = ProfileSaveService()
-    //fileprivate let dataService = DataService()
     
     var data = ProfileModel(name: "name", about: "about", image: #imageLiteral(resourceName: "placeholder"))
     
