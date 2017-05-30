@@ -10,6 +10,8 @@ import Foundation
 protocol ContactManager {
     func send(message: String, to user: String)
     var activeContactName: String? { get }
+    var isOnline: Bool? { get }
+    
 }
 
 protocol ContactManagerDelegate: class {
@@ -25,6 +27,8 @@ class CommunicatorManager {
     
     var activeContactName: String?
     
+    
+    
     weak var activeContactDelegate: ContactManagerDelegate?
 
     init() {
@@ -34,6 +38,10 @@ class CommunicatorManager {
 }
 
 extension CommunicatorManager: ContactManager {
+    var isOnline: Bool? {
+        return (dataService.findOrCreateConversation(conversationId: activeContactName!)!.isOnline)
+    }
+    
     func send(message: String, to user: String) {
         communicator.sendMessage(string: message, to: user) { success, error in
             if success {

@@ -31,6 +31,10 @@ class ConversationViewController: AnimationViewController {
         
         setTitleName()
         
+        if contactManager.isOnline! {
+            animationForOnline()
+        }
+        
         messagesTableView.rowHeight = UITableViewAutomaticDimension
         messagesTableView.estimatedRowHeight = 44
         messagesTableView.separatorStyle = .none
@@ -120,11 +124,7 @@ class ConversationViewController: AnimationViewController {
         self.navigationItem.titleView?.sizeToFit()
     }
     
-}
-
-extension ConversationViewController: ContactManagerDelegate {
-    
-    func becomeOnline() {
+    func animationForOnline() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 1) {
                 self.navigationItem.titleView?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
@@ -134,7 +134,7 @@ extension ConversationViewController: ContactManagerDelegate {
         }
     }
     
-    func becomeOffline() {
+    func animationForOffline() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 1, animations: {
                 self.navigationItem.titleView?.transform = CGAffineTransform.identity
@@ -142,6 +142,20 @@ extension ConversationViewController: ContactManagerDelegate {
             
             self.changeTitleColorAnimation(with: UIColor.black)
         }
+    }
+    
+}
+
+
+
+extension ConversationViewController: ContactManagerDelegate {
+    
+    func becomeOnline() {
+        animationForOnline()
+    }
+    
+    func becomeOffline() {
+        animationForOffline()
     }
 }
 
