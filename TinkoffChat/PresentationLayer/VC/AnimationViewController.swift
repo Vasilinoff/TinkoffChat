@@ -23,15 +23,7 @@ class AnimationViewController: UIViewController {
         self.view.addGestureRecognizer(longPressRecognizer)
 
 
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     
     func longPressed(gesture: UITapGestureRecognizer)  {
         //createFireWorks()
@@ -67,7 +59,6 @@ class AnimationViewController: UIViewController {
         view.layer.addSublayer(emitter)
         
         emitter.emitterShape = kCAEmitterLayerCircle
-        //emitter.emitterPosition = CGPoint(x: rect.width/2, y: rect.height/2)
         emitter.emitterPosition = pointTap!
         
         emitter.emitterSize = rect.size
@@ -80,8 +71,7 @@ class AnimationViewController: UIViewController {
         cell.spin = 0.5
         cell.spinRange = 1.2
         cell.scaleRange = -0.05
-        cell.contents = UIImage(named: "shit")?.cgImage
-        //
+        cell.contents = UIImage(named: "spark")?.cgImage
         
         emitter.emitterCells = [cell]
     }

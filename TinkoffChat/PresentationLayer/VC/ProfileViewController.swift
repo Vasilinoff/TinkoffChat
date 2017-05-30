@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: AnimationViewController, UITextFieldDelegate,UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //MARK: скрывает вью профиля
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -32,7 +32,6 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         self.loadingIndicator.hidesWhenStopped = true
         self.userNameTextField.delegate = self
         self.aboutTextView.delegate = self
-        //self.GCDButton.isEnabled = false
         self.saveButton.isEnabled = false
         
         if !(userNameTextField.text == "name") {
@@ -134,7 +133,6 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate, 
         let name = userNameTextField.text
         let about = aboutTextView.text
         let profileImage = userImageView.image
-        //let color = textColorLabel.textColor
         
         if let nameValue = name, let aboutValue = about, let imageVale = profileImage {
             let newProfileData = ProfileModel(name: nameValue, about: aboutValue, image: imageVale)

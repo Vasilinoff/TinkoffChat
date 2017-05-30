@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController {
+class ConversationViewController: AnimationViewController {
     
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
@@ -125,7 +125,6 @@ class ConversationViewController: UIViewController {
 extension ConversationViewController: ContactManagerDelegate {
     
     func becomeOnline() {
-        print("online")
         DispatchQueue.main.async {
             UIView.animate(withDuration: 1) {
                 self.navigationItem.titleView?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
